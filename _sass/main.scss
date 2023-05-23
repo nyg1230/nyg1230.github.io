@@ -1,0 +1,41 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+}
+
+header {
+	color: red;
+	height: 10vh;
+	border: solid 1px black;
+}
+
+nav {
+	border: solid 1px black;
+}
+
+section {
+	border: solid 1px black;
+	display: flex;
+	justify-content: center;
+	height: 80vh;
+}
+
+article {
+	border: solid 1px black;
+	max-width: 1000px;
+	width: 100%;
+}
+
+aside {
+	border: solid 1px black;
+}
+
+footer {
+	height: 10vh;
+	border: solid 1px black;
+}
+
+.hidden {
+	display: none;
+}

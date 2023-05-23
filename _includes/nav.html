@@ -1,0 +1,34 @@
+<script src="/assets/js/util/utils.js" type="module">
+	window.onload = () => {
+		const nav = document.querySelector(".nav-wrapper");
+		if (nav) {
+			nav.addEventListener("click", onClick.bind(this));
+		}
+	}
+
+	const onClick = (e) => {
+		const { originalTarget: target } = e;
+		const path = e.composedPath();
+		console.log(path);
+		console.log(target);
+	}
+	console.log("test");
+	console.log("{{base.url}}");
+	console.log("test");
+</script>
+<nav>
+	<div class="nav-wrapper">
+	{% for i in site.data.menu.nav %}
+		<div class="nav">
+			<span>{{ i.title }}</span>
+			{% if i.sub %}
+				<div class="accodian hidden">
+				{% for j in i.sub %}
+					<div class="sub">{{ j.title }}</div>
+				{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+</nav>

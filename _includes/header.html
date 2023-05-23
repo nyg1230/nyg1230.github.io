@@ -1,0 +1,7 @@
+<header>
+	<div>
+	{% for i in site.data.menu.home %}
+		<a href="{{ i.path }}">{{ i.title }}</a>
+	{% endfor %}
+	</div>
+</header>

@@ -1,0 +1,13 @@
+home:
+    
+nav:
+    - title: Home
+      path: /
+    - title: test
+      sub:
+            - title: a
+              path: /asdf
+            - title: b
+              path: /asdf
+            - title: c
+              path: /zxcv
