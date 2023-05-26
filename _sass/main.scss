@@ -1,16 +1,31 @@
+* {
+	user-select: none;
+	text-decoration: none;
+}
+
+a {
+	&:visited {
+		color: grayscale($color: #000000);
+	}
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	height: 100vh;
+
+	& div {
+		box-sizing: border-box;
+	}
 }
 
 header {
-	color: red;
 	height: 10vh;
 	border: solid 1px black;
 }
 
 nav {
+	width: 5vw;
 	border: solid 1px black;
 }
 
@@ -25,9 +40,15 @@ article {
 	border: solid 1px black;
 	max-width: 1000px;
 	width: 100%;
+	padding: 10px;
+
+	& > div {
+		border: solid 1px burlywood;
+	}
 }
 
 aside {
+	width: 5vw;
 	border: solid 1px black;
 }
 
@@ -36,6 +57,118 @@ footer {
 	border: solid 1px black;
 }
 
+.grid {
+	display: grid;
+
+	&.main-article {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, minmax(100px, 200px));
+		row-gap: 5px;
+		column-gap: 10px;
+		& .grid-item {
+			&.first {
+				grid-column: 1 / span 1;
+				grid-row: 1 / span 2;
+			}
+
+			&.one-line {
+				grid-column: 1 / span 2;
+			}
+		}
+	}
+}
+
+.flex {
+	display: flex;
+}
+
+.carousel {
+	display: flex;
+}
+
+.recent {
+	--subject-height: 30px;
+	--bottom-height: 30px;
+	height: 100%;
+	box-sizing: border-box;
+
+	& .subject-area {
+		height: var(--subject-height);
+		padding: 1%;
+	}
+
+	& .list-area {
+		height: calc(100% - var(--subject-height) - var(--bottom-height));
+		--padding-spacing: 4px;
+		padding-left: var(--padding-spacing);
+		padding-right: var(--padding-spacing);
+
+		&.grid {
+			grid-template-columns: 100px 100px auto;
+			column-gap: 2px;
+			row-gap: 1px;
+
+			& div {
+				border-radius: 4px;
+				padding-left: 4px;
+				line-height: 18px;
+				border: solid 1px rgba($color: gray, $alpha: 0.2);
+
+				&.header {
+					text-align: center;
+					background-color: rgba($color: gray, $alpha: 0.1);
+				}
+			}
+		}
+	}
+}
+
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .hidden {
 	display: none;
+}
+
+.body {
+	font-size: var(--font-size);
+	font-weight: var(--font-weight);
+
+	&.regular {
+		--font-size: 14px;
+		--font-weight: 400;
+	}
+	
+	&.medium {
+		--font-size: 16px;
+		--font-weight: 500;
+	}
+
+	&.bold {
+		--font-size: 16px;
+		--font-weight: 700;
+	}
+}
+
+.subtitle {
+	font-size: var(--font-size);
+	font-weight: var(--font-weight);
+
+	&.regular {
+		--font-size: 20px;
+		--font-weight: 400;
+	}
+	
+	&.medium {
+		--font-size: 22px;
+		--font-weight: 500;
+	}
+
+	&.bold {
+		--font-size: 22px;
+		--font-weight: 700;
+	}
 }
