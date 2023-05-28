@@ -1,0 +1,22 @@
+article {
+    --breadcrumb-height: 30px;
+    --subject-height: 100px;
+    --pagination-height: 30px;
+    --post-list-height: calc(100% - var(--breadcrumb-height) - var(--subject-height) - var(--pagination-height));
+
+    & .breadcrumb {
+        height: var(--breadcrumb-height);
+    }
+
+    & .subject {
+        height: var(--subject-height);
+    }
+
+    & .post-list {
+        height: var(--post-list-height);
+    }
+
+    & .pagination {
+        height: var(--pagination-height);
+    }
+}
