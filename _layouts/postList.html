@@ -19,7 +19,28 @@
                 subject
             </div>
             <div class="post-list">
-                post list
+				{% for post in site.posts %}
+				<div class="post">
+					<div class="thumbnail">
+						<img src="{{ post.thumbnail }}" onerror='this.src="/assets/img/empty/no_thumbnail.png"'>
+					</div>
+					<div class="content">
+						<div class="title ellipsis">{{ post.title }}</div>
+						<div class="summary ellipsis">
+							{% assign content = post.content | lstrip %}
+							{% if content == "" %}
+								no content...
+							{% else %}
+								{{ post.content }}
+							{% endif %}
+
+						</div>
+						<div class="footer">
+							<a href="{{ post.url }}">more</a>
+						</div>
+					</div>
+				</div>
+				{% endfor%}
             </div>
             <div class="pagination">
                 pagination
@@ -27,6 +48,6 @@
 		</article>
 		{% include aside.html %}
 	</section>
-	{% include footer.html %}
+	<!-- {% include footer.html %} -->
 </body>
 </html>

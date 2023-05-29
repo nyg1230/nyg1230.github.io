@@ -3,10 +3,10 @@ home:
 nav:
     - title: Home
       path: /
-    - title: test
+    - title: Page
       sub:
-            - title: a
-              path: /asdf
+            - title: post list
+              path: /page/postList.html
             - title: b
               path: /asdf
             - title: c
