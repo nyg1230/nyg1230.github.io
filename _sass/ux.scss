@@ -9,6 +9,27 @@ a {
 	}
 }
 
+@media screen and (max-width: 1024px) {
+	body {
+		--width: 100vw;
+
+		header {}
+
+		section {
+			display: grid;
+			align-items: center;
+		}
+		
+		nav {
+			width: var(--width);
+		}
+
+		aside {
+			width: var(--width);
+		}
+	}
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -26,7 +47,7 @@ header {
 
 nav {
 	padding: 6px;
-	width: 7vw;
+	width: 10vw;
 	border: solid 1px black;
 	--visibility: hidden;
 	--sub-menu-height: 0vh;
@@ -80,7 +101,7 @@ nav {
 }
 
 aside {
-	width: 7vw;
+	width: 10vw;
 	border: solid 1px black;
 }
 
@@ -92,7 +113,7 @@ section {
 
 article {
 	border: solid 1px black;
-	max-width: 1000px;
+	max-width: 960px;
 	width: 100%;
 	padding: 10px;
 
