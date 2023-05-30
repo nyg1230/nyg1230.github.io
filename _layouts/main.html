@@ -8,58 +8,60 @@
 	<title>{{ site.title }}</title>
 </head>
 <body>
-	{% include header.html %}
-	<section>
-		{% include nav.html %}
-		<article class="grid main-article border">
-			<div class="grid-item first">
-				crousel<br>
-				commit language chart<br>
-				page.1<br>
-				(api) circle chart / commited language<br>
-				page.2<br>
-				(api) bar chart / recently 1year commit count
-			</div>
-			<div class="grid-item test">
-				{% include recentBoardList.html %}
-			</div>
-			<div class="grid-item test">recent commit history (api)</div>
-			<div class="grid-item one-line">post category list</div>
-			<div class="grid-item one-line">interests category list</div>
-			<div class="grid-item one-line">
-				<h3>to do list</h4>
-				<div>
-					<ul>
-						<li>github api integration</li>
-						<li>
-							canvas (input data, output chart)
-							<ul>
-								<li>circle chart</li>
-								<li>bar chart</li>
-							</ul>
-						</li>
-						<li>
-							template
-							<ul>
-								<li>post list</li>
-								<li>post</li>
-								<li>category post list</li>
-							</ul>
-						</li>
-						<li>
-							design
-							<ul>
-								<li>haeder</li>
-								<li>footer</li>
-								<li>navigator</li>
-							</ul>
-						</li>
-					</ul>
+	<div class="wrapper mint">
+		{% include header.html %}
+		<section>
+			{% include nav.html %}
+			<article class="grid main-article border">
+				<div class="grid-item first">
+					crousel<br>
+					commit language chart<br>
+					page.1<br>
+					(api) circle chart / commited language<br>
+					page.2<br>
+					(api) bar chart / recently 1year commit count
 				</div>
-			</div>
-		</article>
-		{% include aside.html %}
-	</section>
-	<!-- {% include footer.html %} -->
+				<div class="grid-item test">
+					{% include recentBoardList.html %}
+				</div>
+				<div class="grid-item test">recent commit history (api)</div>
+				<div class="grid-item one-line">post category list</div>
+				<div class="grid-item one-line">interests category list</div>
+				<div class="grid-item one-line">
+					<h3>to do list</h4>
+					<div>
+						<ul>
+							<li>github api integration</li>
+							<li>
+								canvas (input data, output chart)
+								<ul>
+									<li>circle chart</li>
+									<li>bar chart</li>
+								</ul>
+							</li>
+							<li>
+								template
+								<ul>
+									<li>post list</li>
+									<li>post</li>
+									<li>category post list</li>
+								</ul>
+							</li>
+							<li>
+								design
+								<ul>
+									<li>haeder</li>
+									<li>footer</li>
+									<li>navigator</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</article>
+			{% include aside.html %}
+		</section>
+		<!-- {% include footer.html %} -->
+	</div>
 </body>
 </html>

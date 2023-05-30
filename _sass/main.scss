@@ -47,7 +47,11 @@
 
 				&.header {
 					text-align: center;
-					background-color: rgba($color: gray, $alpha: 0.1);
+					background-color: var(--sec-rec-thead-background);
+				}
+
+				&.body {
+					background-color: var(--sec-rec-tbody-background);
 				}
 			}
 		}

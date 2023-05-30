@@ -52,7 +52,8 @@ nav {
 	--visibility: hidden;
 	--sub-menu-height: 0vh;
 	--hover-transition: all 500ms;
-	transition: var(--hover-transition);
+	background-color: var(--nav-background);
+	color: var(--nav-color);
 
 	& .nav-wrapper {
 		border: solid 1px gray;
@@ -67,7 +68,8 @@ nav {
 		&:hover {
 			--visibility: visible;
 			--sub-menu-height: 100%;
-			background-color: rgba(blue, 0.1);
+			background-color: var(--nav-menu-background-hover);
+			color: var(--nav-menu-color-hover);
 			transition: var(--hover-transition);
 		}
 
@@ -91,8 +93,13 @@ nav {
 				margin-left: 4px;
 
 				&:hover {
-					background-color: rgba(blue, 0.5);
+					background-color: var(--nav-sub-menu-background-hover);
+					color: var(--nav-sub-menu-color-hover);
 					transition: var(--hover-transition);
+
+					& a {
+						color: rgba(gray, 0.2);
+					}
 				}
 			}
 		}

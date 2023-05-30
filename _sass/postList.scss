@@ -59,16 +59,20 @@ article {
 
                 & .title {
                     height: var(--title-height);
-                    color: rgba(black, 0.7);
-                    background-color: rgba(#98ffcc, 0.2);
+                    color: var(--sec-post-list-title-color);
+                    background-color: var(--sec-post-list-title-background);
                 }
 
                 & .summary {
                     max-height: var(--summary-height);
+					background-color: var(--sec-post-list-summary-background);
+					color: var(--sec-post-list-summary-color);
                 }
 
                 & .footer {
                     height: var(--footer-height);
+					background-color: var(--sec-post-list-footer-background);
+					color: var(--sec-post-list-footer-color);
                     display: flex;
                     justify-content: end;
                 }
