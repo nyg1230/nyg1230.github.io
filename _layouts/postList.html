@@ -15,10 +15,12 @@
 			{% include nav.html %}
 			<article class="border">
 				<div class="breadcrumb">
-					breadcrumb
+					{% for b in page.breadcrumb %}
+					<a href="{{b.path}}">{{ b.title }}</a>
+					{% endfor %}
 				</div>
 				<div class="subject">
-					subject
+					{{ page.title }}
 				</div>
 				<div class="post-list">
 					{% for post in site.posts %}

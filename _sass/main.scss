@@ -35,11 +35,15 @@
 		padding-right: var(--padding-spacing);
 
 		&.grid {
-			grid-template-columns: 100px 100px auto;
-			column-gap: 2px;
 			row-gap: 1px;
 
-			& div {
+			& > div {
+				display: grid;
+				grid-template-columns: 100px 100px auto;
+				column-gap: 2px;
+			}
+
+			& > div {
 				border-radius: 4px;
 				padding-left: 4px;
 				line-height: 18px;

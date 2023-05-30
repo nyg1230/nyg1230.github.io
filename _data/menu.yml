@@ -3,11 +3,11 @@ home:
 nav:
     - title: Home
       path: /
-    - title: Page
+    - title: Category
       sub:
             - title: post list
-              path: /page/postList.html
-            - title: b
-              path: /asdf
-            - title: c
-              path: /zxcv
+              path: /category/postList.html
+            - title: Java
+              path: /category/java.html
+            - title: JavaScript
+              path: /category/javascript.html

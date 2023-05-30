@@ -2,7 +2,7 @@ article {
     --breadcrumb-height: 30px;
     --subject-height: 50px;
     --pagination-height: 30px;
-    --post-list-height: calc(100% - var(--breadcrumb-height) - var(--subject-height) - var(--pagination-height));
+    --post-list-height: auto;
     --padding-spacing: 5px;
 
     & .breadcrumb {
@@ -16,7 +16,7 @@ article {
     }
 
     & .post-list {
-        max-height: var(--post-list-height);
+        height: var(--post-list-height);
         padding: var(--padding-spacing);
 
         display: grid;

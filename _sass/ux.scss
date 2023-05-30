@@ -98,7 +98,7 @@ nav {
 					transition: var(--hover-transition);
 
 					& a {
-						color: rgba(gray, 0.2);
+						color: var(--nav-sub-menu-color-hover);
 					}
 				}
 			}

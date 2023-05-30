@@ -5,9 +5,9 @@ body > .wrapper {
 		--nav-wrapper-background: #FFFFFF;
 		--nav-wrapper-color: #000000;
 		--nav-menu-background-hover: #29961a;
-		--nav-menu-color-hover: #29961a;
+		--nav-menu-color-hover: #FFFFFF;
 		--nav-sub-menu-background-hover: #1a5612;
-		--nav-sub-menu-color-hover: #111111;
+		--nav-sub-menu-color-hover: #FFFFFF;
 
 		--sec-rec-thead-background: #e9e9e9;
 		--sec-rec-tbody-background: #FFFFFF;
@@ -20,5 +20,23 @@ body > .wrapper {
 
 		--sec-post-list-footer-background: #FFFFFF;
 		--sec-post-list-footer-color: #000000;
+
+		& .table {
+			& .row:hover {
+				& > div {
+					background-color: #29961a;
+					color: #FFFFFF;
+					& a {
+						color: #FFFFFF;
+					}
+				}
+			}
+		}
+
+		& .post-list {
+			& .post:hover {
+				background-color: rgba(#b0eecf, 0.2);
+			}
+		}
 	}
 }

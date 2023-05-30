@@ -2,15 +2,19 @@
 	<div class="subject-area">
 		<label class="ellipsis">Recently created post top 5</label>
 	</div>
-	<div class="list-area grid">
-		<div class="header">created at</div>
-		<div class="header">created by</div>
-		<div class="header">title</div>
+	<div class="list-area grid table">
+		<div class="header">
+			<div class="">created at</div>
+			<div class="">created by</div>
+			<div class="">title</div>
+		</div>
 	{% for post in site.posts limit:5 %}
-		<div class="date regular body">{{ post.date | date: "%y-%m-%d %H:%M" }}</div>
-		<div class="writer">{{ post.writer }}</div>
-		<div class="title">
-			<a class="body medium" href="{{ post.url }}"> {{ post.title }}</a>
+		<div class="row">
+			<div class="date regular body">{{ post.date | date: "%y-%m-%d %H:%M" }}</div>
+			<div class="writer">{{ post.writer }}</div>
+			<div class="title">
+				<a class="body medium" href="{{ post.url }}"> {{ post.title }}</a>
+			</div>
 		</div>
 	{% endfor %}
 	</div>
