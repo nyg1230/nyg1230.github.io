@@ -129,6 +129,40 @@ article {
 	}
 }
 
+.breadcrumb {
+	display: flex;
+	font-size: 14px;
+	font-weight: 500;
+	padding: 5px;
+	line-height: 18px;
+	background-color: var(--sec-bc-background);
+
+	& a {
+		// &:not(:last-child)::after {
+		// 	content: " > ";
+		// }
+		&::before {
+			content: ">";
+			padding-left: 4px;
+			padding-right: 4px;
+		}
+	}
+}
+
+.table {
+	& .row:hover {
+		& > div {
+			background-color: var(--table-row-hover-background);
+			color: var(--table-row-hover-color);
+			transition: all 200ms;
+
+			& a {
+				color: var(--table-row-hover-color);
+			}
+		}
+	}
+}
+
 footer {
 	height: 10vh;
 	border: solid 1px black;

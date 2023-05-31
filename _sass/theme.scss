@@ -14,29 +14,15 @@ body > .wrapper {
 
 		--sec-post-list-title-background: #b0eecf;
 		--sec-post-list-title-color: #000000;
-
 		--sec-post-list-summary-background: #FFFFFF;
 		--sec-post-list-summary-color: #000000;
-
 		--sec-post-list-footer-background: #FFFFFF;
 		--sec-post-list-footer-color: #000000;
+		--sec-post-list-background-hover: #b0eecf;
 
-		& .table {
-			& .row:hover {
-				& > div {
-					background-color: #29961a;
-					color: #FFFFFF;
-					& a {
-						color: #FFFFFF;
-					}
-				}
-			}
-		}
+		--sec-bc-background: #9fc495;
 
-		& .post-list {
-			& .post:hover {
-				background-color: rgba(#b0eecf, 0.2);
-			}
-		}
+		--table-row-hover-background: #29961a;
+		--table-row-hover-color: #FFFFFF;
 	}
 }

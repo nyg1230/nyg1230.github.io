@@ -14,13 +14,9 @@
 		<section>
 			{% include nav.html %}
 			<article class="border">
-				<div class="breadcrumb">
-					{% for b in page.breadcrumb %}
-					<a href="{{b.path}}">{{ b.title }}</a>
-					{% endfor %}
-				</div>
+				{% include breadcrumb.html %}
 				<div class="subject">
-					{{ page.title }}
+					<span class="subtitle bold">{{ page.title }}</span>
 				</div>
 				<div class="post-list">
 					{% for post in site.posts %}

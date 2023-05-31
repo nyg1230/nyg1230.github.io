@@ -1,14 +1,8 @@
 article {
-    --breadcrumb-height: 30px;
     --subject-height: 50px;
     --pagination-height: 30px;
     --post-list-height: auto;
-    --padding-spacing: 5px;
-
-    & .breadcrumb {
-        height: var(--breadcrumb-height);
-        padding: var(--padding-spacing);
-    }
+    --padding-spacing: 1%;
 
     & .subject {
         height: var(--subject-height);
@@ -27,7 +21,12 @@ article {
             column-gap: 5px;
             grid-template-columns: repeat(12, 1fr);
             grid-template-rows: repeat(1, minmax(100px, 15vh));
-            --border-radius: 4px;
+            --border-radius: 8px;
+
+			&:hover {
+				background-color: var(--sec-post-list-background-hover);
+				transition: all 500ms;
+			}
 
             & .thumbnail {
                 border-radius: var(border-radius);

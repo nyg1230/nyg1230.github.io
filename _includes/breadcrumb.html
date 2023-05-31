@@ -1,0 +1,5 @@
+<div class="breadcrumb">
+	{% for b in page.breadcrumb %}
+	<a href="{{b.path}}">{{ b.title }}</a>
+	{% endfor %}
+</div>
