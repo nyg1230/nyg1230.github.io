@@ -25,7 +25,13 @@
 					{% include recentBoardList.html %}
 				</div>
 				<div class="grid-item test">recent commit history (api)</div>
-				<div class="grid-item one-line">post category list</div>
+				<div class="grid-item one-line">
+					{% for cat in site.categories %}
+						{{ cat.title }}
+						{{ cat.url }}
+						{{ cat.category }}
+					{% endfor %}
+				</div>
 				<div class="grid-item one-line">interests category list</div>
 				<div class="grid-item one-line">
 					<h3>to do list</h4>

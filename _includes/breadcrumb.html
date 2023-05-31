@@ -1,5 +1,9 @@
 <div class="breadcrumb">
 	{% for b in page.breadcrumb %}
-	<a href="{{b.path}}">{{ b.title }}</a>
+		{% if b.path %}
+			<a href="{{b.path}}">{{ b.title }}</a>
+		{% else %}
+			<span>{{ b.title }}</span>
+		{% endif %}
 	{% endfor %}
 </div>

@@ -137,7 +137,7 @@ article {
 	line-height: 18px;
 	background-color: var(--sec-bc-background);
 
-	& a {
+	& a, & span {
 		// &:not(:last-child)::after {
 		// 	content: " > ";
 		// }
@@ -146,6 +146,10 @@ article {
 			padding-left: 4px;
 			padding-right: 4px;
 		}
+	}
+
+	& span {
+		color: #000000;
 	}
 }
 
