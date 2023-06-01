@@ -4,6 +4,11 @@
 		grid-template-rows: repeat(2, minmax(100px, 200px));
 		row-gap: 5px;
 		column-gap: 10px;
+
+		& > div {
+			border: solid 1px rgba(gray, 0.15);
+		}
+
 		& .grid-item {
 			&.first {
 				grid-column: 1 / span 1;

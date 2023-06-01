@@ -42,22 +42,18 @@ body {
 
 header {
 	height: 10vh;
-	border-bottom: solid 1px black;
 }
 
 nav {
 	padding: 6px;
 	width: 10vw;
-	border: solid 1px black;
 	--visibility: hidden;
 	--sub-menu-height: 0vh;
 	--hover-transition: all 500ms;
 	background-color: var(--nav-background);
 	color: var(--nav-color);
 
-	& .nav-wrapper {
-		border: solid 1px gray;
-	}
+	& .nav-wrapper {}
 
 	& .menu {
 		font-size: 20px;
@@ -109,7 +105,6 @@ nav {
 
 aside {
 	width: 10vw;
-	border: solid 1px black;
 }
 
 section {
@@ -119,14 +114,9 @@ section {
 }
 
 article {
-	border: solid 1px black;
 	max-width: 960px;
 	width: 100%;
 	padding: 10px;
-
-	&.border > div {
-		border: solid 1px burlywood;
-	}
 }
 
 .breadcrumb {
@@ -169,7 +159,6 @@ article {
 
 footer {
 	height: 10vh;
-	border: solid 1px black;
 }
 
 .grid {
