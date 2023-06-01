@@ -1,10 +1,9 @@
 ---
 layout: postList
-title: test~!
+title: post list
 breadcrumb:
     - { title: Home, path: / }
     - { title: Category, path: / }
-    - { title: test, path: / }
 ---
 
 qqqq

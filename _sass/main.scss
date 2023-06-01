@@ -6,7 +6,7 @@
 		column-gap: 10px;
 
 		& > div {
-			border: solid 1px rgba(gray, 0.15);
+			background-color: var(--sec-div-background);
 		}
 
 		& .grid-item {
@@ -49,18 +49,31 @@
 			}
 
 			& > div {
-				border-radius: 4px;
-				padding-left: 4px;
-				line-height: 18px;
-				border: solid 1px rgba($color: gray, $alpha: 0.2);
+				display: grid;
 
-				&.header {
+				&.header > div {
 					text-align: center;
 					background-color: var(--sec-rec-thead-background);
+					color: var(--sec-rec-thead-color);
+					border-radius: 4px;
 				}
 
-				&.body {
+				&.row > div {
 					background-color: var(--sec-rec-tbody-background);
+					color: var(--sec-rec-tbody-color);
+					border-radius: 4px;
+
+					display: flex;
+					align-items: center;
+					
+
+					&:not(:last-child) {
+						justify-content: center;
+					}
+
+					&:last-child {
+						padding-left: 4px;
+					}
 				}
 			}
 		}

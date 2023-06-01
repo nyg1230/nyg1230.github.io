@@ -26,10 +26,9 @@
 				</div>
 				<div class="grid-item test">recent commit history (api)</div>
 				<div class="grid-item one-line">
+					<div>categories</div>
 					{% for cat in site.categories %}
-						{{ cat.title }}
-						{{ cat.url }}
-						{{ cat.category }}
+					<span>{{ cat | first }}</span>
 					{% endfor %}
 				</div>
 				<div class="grid-item one-line">interests category list</div>

@@ -23,6 +23,11 @@ article {
             grid-template-columns: repeat(12, 1fr);
             grid-template-rows: repeat(1, minmax(100px, 15vh));
             --border-radius: 8px;
+            --border-style: solid 1px rgba(128, 128, 128, 0.2);
+            --spacing: 4px;
+
+            padding-left: var(--spacing);
+            padding-right: var(--spacing);
 
 			&:hover {
 				background-color: var(--sec-post-list-background-hover);
@@ -31,11 +36,14 @@ article {
 
             & .thumbnail {
                 border-radius: var(border-radius);
-                border: solid 1px rgba(gray, 0.2);
+                border: var(--border-style);
                 grid-column: 1 / span 3;
                 display: flex;
                 align-items: center;
                 background-color: rgba(black, 0.05);
+
+                margin-top: var(--spacing);
+                margin-bottom: var(--spacing);
 
                 & img {
                     width: 100%;
@@ -45,8 +53,11 @@ article {
 
             & .content {
                 border-radius: var(border-radius);
-                height: 100%;
+                border: var(--border-style);
+                max-height: 100%;
                 grid-column: 4 / span 12;
+                margin-top: var(--spacing);
+                margin-bottom: var(--spacing);
 
                 --title-height: 15%;
                 --footer-height: 15%;

@@ -6,7 +6,6 @@ breadcrumb: home
 breadcrumb:
     - { title: Home, path: / }
     - { title: Category, path: / }
-    - { title: javascript }
 ---
 
 js
