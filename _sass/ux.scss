@@ -240,3 +240,33 @@ footer {
 		}
 	}
 }
+
+.tag-list-wrapper {
+	display: block;
+	padding: 4px;
+
+	& .tag-list-header {
+		margin-bottom: 4px;
+	}
+
+	& .category-tag-list {
+		width: 100%;
+		display: flex;
+		justify-content: start;
+		flex-wrap: wrap;
+	
+		& .category.tag {
+			width: fit-content;
+			font-size: 12px;
+			font-weight: 600;
+			background: rgba(gray, 0.3);
+			color: rgba(black, 0.6);
+	
+			padding: 2px 4px;
+	
+			border-radius: 3px;
+			margin-right: 4px;
+			margin-bottom: 4px;;
+		}
+	}
+}

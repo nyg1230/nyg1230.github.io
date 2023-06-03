@@ -26,10 +26,7 @@
 				</div>
 				<div class="grid-item test">recent commit history (api)</div>
 				<div class="grid-item one-line">
-					<div>categories</div>
-					{% for cat in site.categories %}
-					<span>{{ cat | first }}</span>
-					{% endfor %}
+					{% include categoryTagList.html %}
 				</div>
 				<div class="grid-item one-line">interests category list</div>
 				<div class="grid-item one-line">

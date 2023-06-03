@@ -1,0 +1,11 @@
+<div class="tag-list-wrapper">
+    <div class="tag-list-header">category list</div>
+    <div class="category-tag-list">
+        {% for category in site.categories %}
+        <div class="category tag">
+            {% assign cat = category | first %}
+            <a href="{{site.data.url.ref.catPostList}}{{cat}}">{{ cat }}</a>
+        </div>
+        {% endfor -%}
+    </div>
+</div>
