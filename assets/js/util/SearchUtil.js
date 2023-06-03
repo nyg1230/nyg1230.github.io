@@ -1,3 +1,5 @@
+import * as util from "/assets/js/util/utils.js"
+
 class SearchBuilder {
 	#container;
 	#template;
@@ -13,6 +15,7 @@ class SearchBuilder {
 
 	constructor(p) {
 		this.#setOption(p);
+		this.#setTemplate(this.#template);
 	}
 
 	get info() {
@@ -23,40 +26,65 @@ class SearchBuilder {
 		}
 	}
 
-	#setOption({ target, template, fileName, max = 10 }) {
-		this.#container = target;
+	async #setOption({ container, template, fileName, max = 10, condition, target, page = 0, keyword = "" }) {
+		this.#container = container;
 		this.#template = template;
 		this.#fileName = fileName;
 		this.#max = max;
-		this.#getAllList();
+		await this.#getAllList(condition);
+		this.search(keyword, target, page);
 	}
 
-	async #getAllList() {
+	async #getAllList(condition) {
 		try {
 			const res = await fetch(this.#fileName);
 			this.#list.all = await res.json();
+
+			if (util.CommonUtil.isFunction(condition)) {
+				this.#list.all = this.#list.all.filter(condition);
+			}
+
 			this.#totalCount = this.#list.all.length;
 			this.#totalPage = Math.ceil(this.#totalCount / this.#max);
-		} catch {}
+		} finally {}
 	}
 
 	#getTemplate() {
 		const { search } = { ...this.#list };
-		const list = search.slice(this.#page, this.#page + this.#max);
+		window.qqq = search;
+		const n = this.#page * this.#max;
+		const list = search.slice(n, n + this.#max);
+		const html = list.map((d) => this.#template(d)).join("");
+
+		return html;
 	}	
+
+	#setTemplate(template) {
+		const reg = /\{\{\s*(.*?)\s*\}\}/g;
+		this.#template = (d) => {
+			return template.replace(reg, (str) => {
+				const r = new RegExp(/\{\{\s*(.*?)\s*\}\}/);
+				const [_, key] = [...r.exec(str)];
+				return util.CommonUtil.find(d, key, "");
+			});
+		}
+	}
 
 	#render() {
 		const template = this.#getTemplate();
-		this.#container;
+		util.CommonUtil.removeAllChild(this.#container);
 		this.#container.insertAdjacentHTML("beforeend", template);
 	}
 
-	search() {
+	search(keyword = "", target = "title", page = 0) {
 		const { all, search }  = { ...this.#list };
-		const list = all.filter((post) => post);
+		const list = util.CommonUtil.isEmpty(keyword) ? all : all.filter((post) => post[target].indexOf(keyword) > 0);
 		search.splice(0, search.length, ...list);
-		this.#page = 0;
+		this.#page = page;
+		console.log(keyword, target, page)
 		this.#render();
+
+		return this.info;
 	}
 
 	nextPage() {

@@ -1,19 +1,20 @@
 <nav>
 	<div class="nav-wrapper">
-	{% for i in site.data.menu.nav %}
 		<div class="menu">
-			<a {% if i.path %}href="{{i.path}}"{% endif%}>{{ i.title }}</a>
-			{% if i.sub %}
+			<div class="menu-item">
+				<a href="/">Home</a>
+			</div>
+			<div class="menu-item">
+				<a href="/categories">Categories</a>
 				<div class="accordion">
-				{% for j in i.sub %}
+					{% for category in site.categories %}
 					<div class="sub-menu">
-						<a href="{{j.path}}">{{ j.title }}</a>
+						{% assign cat = category | first %}
+						<a href="/list/categories/{{cat}}"><span>- {{ cat }}</span></a>
 					</div>
-				{% endfor %}
+					{% endfor %}
 				</div>
-			{% endif %}
+			</div>
 		</div>
-	{% endfor %}
 	</div>
-	<div class="test"></div>
 </nav>
