@@ -2,9 +2,8 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import * as util from "/assets/js/util/utils.js"
 
 class GithubApiUtil {
-    #key = "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";
+    #key = "test";
     #api_version = "2022-11-28";
-    #apiUrl;
     #owner;
     #repo;
     #octokit;
@@ -13,19 +12,18 @@ class GithubApiUtil {
         const { owner, repo } = { ...p };
         this.#owner = owner;
         this.#repo = repo;
-        this.#apiUrl = `GET /repos/${this.#owner}/${this.#repo}/`;
         this.#octokit = new Octokit({
             auth: this.#key
         });
     }
 
-    static get url() {
+    get url() {
         return {
             commit: {
-                list: "commits", // 해당 레파지토리의 커밋 리스트 반환
+                list: `/repos/${this.#owner}/${this.#repo}/commits`, // 해당 레파지토리의 커밋 리스트 반환
             },
             repo: {
-                languages: "languages", // 레파지토리 내 커밋된 프로그래밍 언어 파일 라인 수
+                languages: `/repos/${this.#owner}/${this.#repo}/languages`, // 레파지토리 내 커밋된 프로그래밍 언어 파일 라인 수
             }
         }
     }
@@ -47,10 +45,9 @@ class GithubApiUtil {
     }
 
     async callApi(key, option) {
-        const url = util.CommonUtil.find(GithubApiUtil.url, key);
-        console.log(this.#apiUrl);
+        const url = util.CommonUtil.find(this.url, key);
         console.log(url);
-        return this.#api(`${this.#apiUrl}${url}`, option);
+        return this.#api(`GET ${url}`, option);
     }
 }
 
