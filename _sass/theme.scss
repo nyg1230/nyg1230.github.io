@@ -1,4 +1,26 @@
 body > .wrapper {
+	// 2023 color of a year
+	--viva-magenta: #BE3455;
+	--pale-dogwood: #EFD1C6;
+	--gray-sand: #ECD5B8;
+	--gray-lilac: #D4CACD;
+	--pale-khaki: #BFAF92;
+	--fields-of-rye: #B7A990;
+	--agate-gray: #B4B5A5;
+	--plein-air: #BFCAD6;
+	// 2023 color of a year
+
+	&.theme {
+		--year-of-a-color: var(--viva-magenta);
+		--background-color: var(--pale-dogwood);
+		--background-color-hover: var(--gray-sand);
+		--color: var(--viva-magenta);
+		--color-hover: var(--viva-magenta);
+
+		--a-color: var(--viva-magenta);
+		--a-color-visited: var(--viva-magenta);
+	}
+
 	&.mint {
 		--nav-background: #FFFFFF;
 		--nav-color: #000000;
@@ -9,7 +31,7 @@ body > .wrapper {
 		--nav-sub-menu-background-hover: #1a5612;
 		--nav-sub-menu-color-hover: #FFFFFF;
 
-		--sec-div-background: rgba(100, 255, 150, 0.1);
+		// --sec-div-background: rgba(100, 255, 150, 0.1);
 
 		--sec-rec-thead-background: rgba(150, 255, 100, 0.7);
 		--sec-rec-thead-color: rgba(0, 0, 0, 0.8);

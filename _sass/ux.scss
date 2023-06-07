@@ -4,8 +4,9 @@
 }
 
 a {
+	color: var(--a-color);
 	&:visited {
-		color: grayscale($color: #000000);
+		color: var(--a-color-visited);
 	}
 }
 
@@ -116,7 +117,7 @@ aside {
 section {
 	display: flex;
 	justify-content: center;
-	min-height: 90vh;
+	// min-height: 90vh;
 }
 
 article {
@@ -243,24 +244,22 @@ footer {
 
 .tag-list-wrapper {
 	display: block;
-	padding: 4px;
 
-	& .tag-list-header {
-		margin-bottom: 4px;
-	}
+	& .tag-list-header {}
 
 	& .category-tag-list {
 		width: 100%;
 		display: flex;
 		justify-content: start;
 		flex-wrap: wrap;
+		padding: 4px;
 	
 		& .category.tag {
 			width: fit-content;
 			font-size: 12px;
 			font-weight: 600;
-			background: rgba(gray, 0.3);
-			color: rgba(black, 0.6);
+			background: var(--background-color);
+			color: var(--color);
 	
 			padding: 2px 4px;
 	
@@ -268,5 +267,17 @@ footer {
 			margin-right: 4px;
 			margin-bottom: 4px;;
 		}
+	}
+}
+
+.title-before {
+	color: var(--color);
+	font-weight: 700;
+	margin-bottom: 4px;
+	
+	&::before {
+		content: "";
+		border-left: 6px solid var(--year-of-a-color);
+		margin-right: 4px;
 	}
 }

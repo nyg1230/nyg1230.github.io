@@ -9,57 +9,42 @@
 	<title>{{ site.title }}</title>
 </head>
 <body>
-	<div class="wrapper mint">
+	<div class="wrapper theme">
 		{% include header.html %}
 		<section>
 			{% include nav.html %}
 			<article class="grid main-article">
-				<div class="grid-item first">
-					crousel<br>
-					commit language chart<br>
-					page.1<br>
-					(api) circle chart / commited language<br>
-					page.2<br>
-					(api) bar chart / recently 1year commit count
+				<div class="grid-item bar-area">
+					<div class="title-before">일간 커밋 횟수</div>
 				</div>
-				<div class="grid-item test">
+				<div class="grid-item pie-area">
+					<div class="title-before">저장소 내 언어 현황</div>
+				</div>
+				<div class="grid-item commit-area">
+					<div class="title-before">최근 커밋 이력</div>
+					<div class="commit-list">
+						<div class="row">
+							<div class="date border">0000-00-00 00:00</div>
+							<div class="user border">wednesday</div>
+							<div class="message border">commit message</div>
+						</div>
+						<div class="row">
+							<div class="date border">9999-99-99 23:59</div>
+							<div class="user border">sweeney todd</div>
+							<div class="message border">commit message</div>
+						</div>
+						<div class="row">
+							<div class="date border">1234-12-23 21:10</div>
+							<div class="user border ellipsis">long logn long long</div>
+							<div class="message border ellipsis">commit message</div>
+						</div>
+					</div>
+				</div>
+				<div class="grid-item one-line">
 					{% include recentBoardList.html %}
 				</div>
-				<div class="grid-item test">recent commit history (api)</div>
 				<div class="grid-item one-line">
 					{% include categoryTagList.html %}
-				</div>
-				<div class="grid-item one-line">interests category list</div>
-				<div class="grid-item one-line">
-					<h3>to do list</h4>
-					<div>
-						<ul>
-							<li>github api integration</li>
-							<li>
-								canvas (input data, output chart)
-								<ul>
-									<li>circle chart</li>
-									<li>bar chart</li>
-								</ul>
-							</li>
-							<li>
-								template
-								<ul>
-									<li>post list</li>
-									<li>post</li>
-									<li>category post list</li>
-								</ul>
-							</li>
-							<li>
-								design
-								<ul>
-									<li>haeder</li>
-									<li>footer</li>
-									<li>navigator</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</article>
 			{% include aside.html %}

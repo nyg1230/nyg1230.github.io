@@ -1,80 +1,88 @@
 .grid {
 	&.main-article {
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: repeat(2, minmax(100px, 200px));
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(1, minmax(auto, 200px));
 		row-gap: 5px;
-		column-gap: 10px;
-
-		& > div {
-			background-color: var(--sec-div-background);
-		}
+		column-gap: 5px;
 
 		& .grid-item {
-			&.first {
-				grid-column: 1 / span 1;
+			padding: 6px;
+
+			&.bar-area {
+				grid-column: 1 / span 4;
 				grid-row: 1 / span 2;
 			}
 
+			&.pie-area {
+				grid-column: 1 / span 1;
+			}
+
+			&.commit-area {
+				grid-column: 2 / span 3;
+
+				& .commit-list {
+					& .border {
+						border: 1px solid #000;
+					}
+					display: grid;
+					row-gap: 2px;;
+					& .row {
+						display: grid;
+						grid-template-columns: repeat(12, 1fr);
+						column-gap: 4px;
+
+						& .date {
+							grid-column: 1 / span 3;
+						}
+						
+						& .user {
+							grid-column: 4 / span 2;
+						}
+
+						& .message {
+							grid-column: 6 / span 6;
+						}
+					}
+				}
+			}
+
 			&.one-line {
-				grid-column: 1 / span 2;
+				grid-column: 1 / span 4;
 			}
 		}
 	}
 }
 
 .recent {
-	--subject-height: 30px;
-	--bottom-height: 30px;
-	height: 100%;
-	box-sizing: border-box;
+	--spacing: 6px;
 
-	& .subject-area {
-		height: var(--subject-height);
-		padding: 1%;
-	}
+	& .subject-area {}
 
 	& .list-area {
-		height: calc(100% - var(--subject-height) - var(--bottom-height));
-		--padding-spacing: 4px;
-		padding-left: var(--padding-spacing);
-		padding-right: var(--padding-spacing);
+		row-gap: 4px;
 
-		&.grid {
-			row-gap: 1px;
+		& .grid.row {
+			padding: 2px var(--spacing);
 
-			& > div {
-				display: grid;
-				grid-template-columns: 100px 100px auto;
-				column-gap: 2px;
+			&:hover {
+				transition: all 500ms;
+				background-color: var(--background-color-hover);
+				&, & * {
+					color: var(--color-hover);
+				}
 			}
 
-			& > div {
-				display: grid;
-
-				&.header > div {
-					text-align: center;
-					background-color: var(--sec-rec-thead-background);
-					color: var(--sec-rec-thead-color);
-					border-radius: 4px;
+			& .title {
+				margin-bottom: 2px;
+				a {
+					font-size: 20px;
 				}
-
-				&.row > div {
-					background-color: var(--sec-rec-tbody-background);
-					color: var(--sec-rec-tbody-color);
-					border-radius: 4px;
-
-					display: flex;
-					align-items: center;
-					
-
-					&:not(:last-child) {
-						justify-content: center;
-					}
-
-					&:last-child {
-						padding-left: 4px;
-					}
-				}
+			}
+	
+			& .info {
+				font-size: 12px;
+				font-weight: 400;
+				padding-left: var(--spacing);
 			}
 		}
 	}
