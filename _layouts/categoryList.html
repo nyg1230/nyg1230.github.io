@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/assets/css/categoryList.css">
+	<!-- <script src="/assets/js/layout/categoryList.js" type="module"></script> -->
+	<title>{{ site.title }}</title>
+</head>
+<body>
+	<div class="wrapper theme">
+		{% include header.html %}
+		<section>
+			{% include nav.html %}
+			<article class="border">
+				<div class="category-list">
+				{% for category in site.categories %}
+					{% assign cat = category | first %}
+					<span>{{ cat }}</span>
+					<div class="post-list">
+					{% for post in site.categories[cat] %}
+						<div class="row">
+							{{ post.title }}
+						</div>
+					{% endfor %}
+					</div>
+				{% endfor %}
+				</div>
+			</article>
+			{% include aside.html %}
+		</section>
+		<!-- {% include footer.html %} -->
+	</div>
+</body>
+</html>

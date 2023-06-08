@@ -1,5 +1,5 @@
 ---
-layout: basic
+layout: categoryList
 title: post list
 permalink: /categories
 breadcrumb:

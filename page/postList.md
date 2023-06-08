@@ -4,7 +4,5 @@ title: post list
 permalink: /list
 breadcrumb:
     - { title: Home, path: / }
-    - { title: Category, path: /category }
+    - { title: Category, path: /categories }
 ---
-
-qqqq

@@ -4,18 +4,20 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/assets/css/basic.css">
-	<title>{{ page.title }}</title>
+	<link rel="stylesheet" href="/assets/css/main.css">
+	<script src="/assets/js/layout/main.js" type="module"></script>
+	<title>{{ site.title }}</title>
 </head>
 <body>
-	{% include header.html %}
-	<section>
-		{% include nav.html %}
-		<article class="">
-			{{ content }}
-		</article>
-		{% include aside.html %}
-	</section>
-	{% include footer.html %}
+	<div class="wrapper theme">
+		{% include header.html %}
+		<section>
+			{% include nav.html %}
+			<article class="">
+			</article>
+			{% include aside.html %}
+		</section>
+		<!-- {% include footer.html %} -->
+	</div>
 </body>
 </html>
