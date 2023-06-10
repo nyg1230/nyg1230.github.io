@@ -30,8 +30,9 @@ article {
             padding-right: var(--spacing);
 
 			&:hover {
-				background-color: var(--sec-post-list-background-hover);
+				background-color: var(--grid-row-background-color-hover);
 				transition: all 500ms;
+                color: var(--grid-row-color-hover);
 			}
 
             & .thumbnail {

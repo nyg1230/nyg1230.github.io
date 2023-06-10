@@ -2,6 +2,7 @@ import * as util from "/assets/js/util/utils.js";
 
 window.onload = (e) => {
 	const builder = getSearchBuilder();
+	setBreadCrumb();
 };
 
 const getSearchBuilder = () => {
@@ -9,17 +10,9 @@ const getSearchBuilder = () => {
 	const template = postListTemplate;
 	const pagination = document.querySelector(".pagination");
 
-	const pathname = location.pathname.replace(/^\/*/, "");
-	const [_, target, cond, p1, p2] = pathname.split("/");
-
-	let page;
-	let keyword;
-
-	if (util.CommonUtil.isString(keyword)) {
-		[keyword, page] = [p1, p2];
-	} else {
-		[keyword, page] = ["", Number(p1) || 0];
-	}
+	const param = util.CommonUtil.getUrlParam(location.search);
+	const { cat, page = 1, keyword = "" } = { ...param };
+	const target = "categories";
 
 	const option = {
 		container: container,
@@ -30,7 +23,7 @@ const getSearchBuilder = () => {
 		condition: (d) => {
 			let result = false;
 			try {
-				result = d[target].includes(cond)
+				result = d[target].includes(cat);
 			} catch {}
 			return result;
 		},
@@ -40,6 +33,15 @@ const getSearchBuilder = () => {
 	const builder = util.SearchUtil.getBuilder(option);
 	return builder;
 }
+
+const setBreadCrumb = () => {
+	const param = util.CommonUtil.getUrlParam(location.search);
+	const { cat = "All" } = { ...param };
+
+	const span = `<span class="current">${cat}</span>`;
+	const breadcrumb = document.querySelector(".breadcrumb");
+	breadcrumb && breadcrumb.insertAdjacentHTML("beforeend", span);
+};
 
 const postListTemplate = `
 <div class="post">

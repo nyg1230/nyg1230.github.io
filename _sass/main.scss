@@ -1,7 +1,7 @@
 .grid {
 	&.main-article {
 		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: repeat(1, minmax(auto, 200px));
+		grid-template-rows: repeat(1, minmax(200px, auto));
 		row-gap: 5px;
 		column-gap: 5px;
 

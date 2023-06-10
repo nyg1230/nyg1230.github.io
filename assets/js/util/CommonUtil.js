@@ -63,7 +63,16 @@ const CommonUtil = {
 			}
 		}
 		return result;
-	}
+	},
+    getUrlParam(url) {
+        url = url.replace(/^\?/, "");
+        const p = {};
+        url.split("&").forEach((d) => {
+            const [k, v] = [...d.split("=")];
+            p[k] = v;
+        });
+        return p;
+    }
 };
 
 export default CommonUtil;

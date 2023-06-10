@@ -1,7 +1,7 @@
 ---
 layout: postList
 title: post list
-permalink: /list
+permalink: /categories/list
 breadcrumb:
     - { title: Home, path: / }
     - { title: Category, path: /categories }

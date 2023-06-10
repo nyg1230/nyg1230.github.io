@@ -10,7 +10,7 @@
 					{% for category in site.categories %}
 					<div class="sub-menu">
 						{% assign cat = category | first %}
-						<a href="{{site.data.url.ref.catPostList}}{{cat}}"><span>- {{ cat }}</span></a>
+						<a href="{{site.data.url.ref.catPostList}}?cat={{cat}}"><span>- {{ cat }}</span></a>
 					</div>
 					{% endfor %}
 				</div>

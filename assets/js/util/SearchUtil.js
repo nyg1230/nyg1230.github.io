@@ -5,7 +5,7 @@ class SearchBuilder {
 	#template;
 	#fileName;
 	#max;
-	#page = 0;
+	#page = 1;
 	#totalCount;
 	#totalPage;
 	#list = {
@@ -76,12 +76,11 @@ class SearchBuilder {
 		this.#container.insertAdjacentHTML("beforeend", template);
 	}
 
-	search(keyword = "", target = "title", page = 0) {
+	search(keyword = "", target = "title", page = 1) {
 		const { all, search }  = { ...this.#list };
 		const list = util.CommonUtil.isEmpty(keyword) ? all : all.filter((post) => post[target].indexOf(keyword) > 0);
 		search.splice(0, search.length, ...list);
-		this.#page = page;
-		console.log(keyword, target, page)
+		this.#page = page - 1;
 		this.#render();
 
 		return this.info;

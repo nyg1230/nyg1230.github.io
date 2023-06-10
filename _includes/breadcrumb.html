@@ -1,17 +1,3 @@
-<script>
-	const addBreadCrumb = () => {
-		const pathname = window.location.pathname.replace(/^\/*/, "");
-		const [_, target, cond] = pathname.split("/");
-
-		const span = `<span class="current">${cond}</span>`;
-		const breadcrumb = document.querySelector(".breadcrumb");
-		breadcrumb && breadcrumb.insertAdjacentHTML("beforeend", span);
-		window.removeEventListener("load", addBreadCrumb);
-	}
-
-	window.addEventListener("load", addBreadCrumb.bind(this));
-</script>
-
 <div class="breadcrumb">
 	{% for b in page.breadcrumb %}
 		{% if b.path %}

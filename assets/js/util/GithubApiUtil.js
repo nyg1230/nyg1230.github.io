@@ -2,7 +2,7 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import * as util from "/assets/js/util/utils.js"
 
 class GithubApiUtil {
-    #key = "test";
+    #key = "Z2hwX2x1UlIzWlBpbVlFcXF2bTBtTTJXVFlpc3c1TzdxczFUVGc5Qw==";
     #api_version = "2022-11-28";
     #owner;
     #repo;
@@ -13,7 +13,7 @@ class GithubApiUtil {
         this.#owner = owner;
         this.#repo = repo;
         this.#octokit = new Octokit({
-            auth: this.#key
+            auth: atob(this.#key)
         });
     }
 
@@ -46,17 +46,11 @@ class GithubApiUtil {
 
     async callApi(key, option) {
         const url = util.CommonUtil.find(this.url, key);
-        console.log(url);
         return this.#api(`GET ${url}`, option);
     }
 }
 
 export default {
-    // GithubApiUtil: () => {
-    //     const gApiUtil = new GithubApiUtil();
-
-    //     return ""
-    // },
     getBuilder: (p) => {
         return new GithubApiUtil(p);
     }
