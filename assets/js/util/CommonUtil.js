@@ -72,6 +72,11 @@ const CommonUtil = {
             p[k] = v;
         });
         return p;
+    },
+    setBreadCrumb(txt) {
+        const span = `<span class="current">${txt}</span>`;
+        const breadcrumb = document.querySelector(".breadcrumb");
+        breadcrumb && breadcrumb.insertAdjacentHTML("beforeend", span);
     }
 };
 

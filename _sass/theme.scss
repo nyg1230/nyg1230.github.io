@@ -22,6 +22,15 @@ body > .wrapper {
 
 		--grid-row-background-color-hover: var(--gray-sand);
 		--grid-row-color-hover: var(--viva-magenta);
+
+		--breadcrumb-background-color: var(--plein-air);
+		--breadcrumb-a-color: var(--viva-magenta);
+
+		--accodion-background-color-hover: var(--gray-sand);
+		--accodion-color-hover: var(--fields-of-rye);
+		--accodion-color: #000000;
+		--accodion-sub-d1-background-color-hover: var(--agate-gray);
+		--accodion-sub-d1-color-hover: var(--viva-magenta);
 	}
 
 	&.mint {

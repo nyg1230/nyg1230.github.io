@@ -38,9 +38,7 @@ const setBreadCrumb = () => {
 	const param = util.CommonUtil.getUrlParam(location.search);
 	const { cat = "All" } = { ...param };
 
-	const span = `<span class="current">${cat}</span>`;
-	const breadcrumb = document.querySelector(".breadcrumb");
-	breadcrumb && breadcrumb.insertAdjacentHTML("beforeend", span);
+	util.CommonUtil.setBreadCrumb(cat);
 };
 
 const postListTemplate = `
