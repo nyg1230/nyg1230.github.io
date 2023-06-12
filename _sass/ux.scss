@@ -59,7 +59,51 @@ nav {
 	color: #000000;
 
 	& .nav-wrapper {
-		border: solid 1px rgba(128, 128, 128, 0.3);
+		// border: solid 1px rgba(128, 128, 128, 0.3);
+	}
+
+	& .profile {
+		padding: 4px;
+		margin-bottom: 8px;
+
+		& .image {
+			margin: 0 auto;
+			width: 100px;
+			height: 100px;
+			border-radius: 100%;
+			background-image: url(/assets/img/etc/eolloogi.png);
+			background-size: cover;
+		}
+
+		& .link {
+			padding: 4px;
+
+			&:hover {
+				background-color: var(--background-color);
+			}
+
+			& * {
+				color : #000000;
+				
+				&:hover {
+					color: var(--year-of-a-color);
+				}
+			}
+
+			& a {
+				display: flex;
+				--icon-size: 18px;
+
+				&::before {
+					content: "";
+					width: var(--icon-size);
+					height: var(--icon-size);
+					background-image: url(/assets/img/icon/github.png);
+					background-size: cover;
+					margin-right: 6px;
+				}
+			}
+		}
 	}
 
 	& .menu {
@@ -168,15 +212,13 @@ article {
 	}
 }
 
-.table {
-	& .row:hover {
-		& > div {
-			background-color: var(--table-row-hover-background) !important;
-			color: var(--table-row-hover-color) !important;
-			transition: all 200ms;
 
-			& a {
-				color: var(--table-row-hover-color) !important;
+.table {
+	& .row {
+		&:hover {
+			& .item {
+				background-color: var(--background-color-hover);
+				color: var(--color-hover);
 			}
 		}
 	}

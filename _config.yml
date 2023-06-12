@@ -28,6 +28,7 @@ domain: nyg1230.github.io
 baseurl: / # the subpath of your site, e.g. /blog
 url: https://nyg1230.github.io # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  nyg1230
+github_url: https://github.com/nyg1230
 
 # Build settings
 theme: minima

@@ -18,9 +18,9 @@ const setCommitList = async () => {
     const commitList = document.querySelector(".commit-list");
     const template = (date, username, message) => `
         <div class="row">
-            <div class="date border">${date}</div>
-            <div class="user border">${username}</div>
-            <div class="message border">${message}</div>
+            <div class="item date">${date}</div>
+            <div class="item user">${username}</div>
+            <div class="item message">${message}</div>
         </div>
     `;
     const option = {

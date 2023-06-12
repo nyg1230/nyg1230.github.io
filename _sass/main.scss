@@ -21,15 +21,21 @@
 				grid-column: 2 / span 3;
 
 				& .commit-list {
-					& .border {
-						border: 1px solid #000;
-					}
 					display: grid;
 					row-gap: 2px;;
+
 					& .row {
 						display: grid;
 						grid-template-columns: repeat(12, 1fr);
-						column-gap: 4px;
+						column-gap: 2px;
+						--pading-spacing: 2px 4px;
+						--border: solid 1px var(--plein-air);
+
+						& > div {
+							border: var(--border);
+							padding: var(--pading-spacing);
+							border-radius: 4px;
+						}
 
 						& .date {
 							grid-column: 1 / span 3;
@@ -40,7 +46,7 @@
 						}
 
 						& .message {
-							grid-column: 6 / span 6;
+							grid-column: 6 / span 7;
 						}
 					}
 				}
