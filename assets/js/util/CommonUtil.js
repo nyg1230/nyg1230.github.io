@@ -1,5 +1,5 @@
 const CommonUtil = {
-	isArray(obj) {
+    isArray(obj) {
         return Array.isArray(obj);
     },
     isFunction(obj) {
@@ -8,12 +8,12 @@ const CommonUtil = {
     isObject(obj) {
         return typeof obj === "object";
     },
-	isString(obj) {
-		return typeof obj === "string";
-	},
-    isNumber(obj) {
-        return typeof obj === "nnumber";
+    isString(obj) {
+        return typeof obj === "string";
     },
+	isNumber(obj) {
+		return typeof obj === "number";
+	},
     isNull(obj) {
         return obj === null || obj === undefined;
     },
@@ -26,7 +26,7 @@ const CommonUtil = {
     isNotEmpty(obj) {
         !this.isEmpty(obj)
     },
-	length(obj) {
+    length(obj) {
         let len = 0;
 
         if (this.isNull(obj)) {
@@ -38,12 +38,31 @@ const CommonUtil = {
 
         return len;
     },
-	removeAllChild(dom) {
-		while(dom.firstElementChild) {
-			dom.removeChild(dom.firstElementChild);
-		}
-	},
-	find(obj, key, defaultValue) {
+
+    round(num, round = 1, isPercent = false) {
+        let result = 0;
+        const corr = 10 ** round;
+        const tmp = num * corr;
+        result = Math.round(tmp) / corr;
+        result = isPercent === true ? result * 100 : result;
+        return result;
+    },
+
+    requestAnimationFrame(target, prop) {
+        const name = "___reqani";
+
+        target[name] && window.cancelAnimationFrame(target[name]);
+        target[name] = window.requestAnimationFrame(target[prop].bind(target));
+    },
+
+    cancelAnimationFrame(target, prop) {
+        const name = "___reqani";
+
+        target[name] && window.cancelAnimationFrame(target[name]);
+        window.cancelAnimationFrame(target[prop]);
+    },
+
+    find(obj, key, defaultValue) {
 		let result;
 		if (this.isString(key)) key = key.split(".");
 
@@ -64,19 +83,38 @@ const CommonUtil = {
 		}
 		return result;
 	},
-    getUrlParam(url) {
-        url = url.replace(/^\?/, "");
-        const p = {};
-        url.split("&").forEach((d) => {
-            const [k, v] = [...d.split("=")];
-            p[k] = v;
-        });
-        return p;
+
+    debounce(target, prop, param, option) {
+        const { delay = 300 } = { ...option };
+        const key = `__debounce_${prop}`;
+
+        
+        const fn = () => {
+            target[key] = window.setTimeout(() => {
+                target[key] = null;
+                target[prop].apply(target, param);
+            }, delay);
+        };
+        
+        if (!target[key]) {
+            fn();
+        } else {
+            window.clearTimeout(target[key]);
+            fn();
+        }
     },
-    setBreadCrumb(txt) {
-        const span = `<span class="current">${txt}</span>`;
-        const breadcrumb = document.querySelector(".breadcrumb");
-        breadcrumb && breadcrumb.insertAdjacentHTML("beforeend", span);
+
+    throttle(target, prop, param, option) {
+        const key = `__throttle_${prop}`;
+
+        if (!target[key]) {
+            const fn = () => {
+                target[key] = true;
+                target[prop].apply(target, param);
+                target[key] = null;
+            };
+            fn();
+        }
     }
 };
 

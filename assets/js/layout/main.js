@@ -1,9 +1,9 @@
 import * as util from "/assets/js/util/utils.js"
+import PieChart from "/assets/js/chart/PieChart.js"
 
 const githubApiUtil = util.GithubApiUtil.getBuilder({ owner: "nyg1230", repo: "nyg1230.github.io" });
 
 const init = () => {
-    
     setCommitList();
     drawChart();
     window.removeEventListener("load", init);
@@ -49,7 +49,11 @@ const drawPieChart = async () => {
             value: v
         }
     });
-    console.log(pieData);
+
+	const target = util.DomUtil.querySelector(document, ".pie-area .chart-area");
+	const rect = util.StyleUtil.getBoundingClientRect(target);
+	const { width, height } = rect;
+	const pieChart = new PieChart(target, pieData, { attr: { width, height } });
 };
 
 const drawBartChart = () => {};

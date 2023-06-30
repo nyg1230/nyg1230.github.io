@@ -15,6 +15,9 @@
 
 			&.pie-area {
 				grid-column: 1 / span 1;
+				& .chart-area {
+					min-height: 150px;
+				}
 			}
 
 			&.commit-area {
