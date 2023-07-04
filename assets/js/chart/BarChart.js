@@ -1,5 +1,5 @@
-import Chart from "./Chart.js";
-import * as util from "../util/Utils.js";
+import Chart from "/assets/js/chart/Chart.js";
+import * as util from "/assets/js/util/utils.js";
 
 const color = ["#EFD1C6"];
 class BarChart extends Chart {

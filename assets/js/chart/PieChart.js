@@ -1,5 +1,5 @@
-import Chart from "./Chart.js";
-import * as util from "../util/Utils.js";
+import Chart from "/assets/js/chart/Chart.js";
+import * as util from "/assets/js/util/utils.js";
 
 const color = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#000080", "#6A0DAD"];
 class PieChart extends Chart {
