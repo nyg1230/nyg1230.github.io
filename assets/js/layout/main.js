@@ -1,5 +1,6 @@
 import * as util from "/assets/js/util/utils.js"
 import PieChart from "/assets/js/chart/PieChart.js"
+import BarChart from "/assets/js/chart/BarChart.js"
 
 const githubApiUtil = util.GithubApiUtil.getBuilder({ owner: "nyg1230", repo: "nyg1230.github.io" });
 
@@ -11,7 +12,7 @@ const init = () => {
 
 const drawChart = () => {
     drawPieChart();
-    drawBartChart();
+    drawBarChart();
 };
 
 const setCommitList = async () => {
@@ -20,7 +21,7 @@ const setCommitList = async () => {
         <div class="row">
             <div class="item date">${date}</div>
             <div class="item user">${username}</div>
-            <div class="item message">${message}</div>
+            <div class="item message ellipsis">${message}</div>
         </div>
     `;
     const option = {
@@ -56,6 +57,28 @@ const drawPieChart = async () => {
 	const pieChart = new PieChart(target, pieData, { attr: { width, height } });
 };
 
-const drawBartChart = () => {};
+const drawBarChart = async () => {
+    const res = await githubApiUtil.callApi("commit.count.weekly");
+    const { data } = { ...res };
+    const { all, owner }= { ...data };
+    const len = all.length;
+    const chartData = [];
+
+    const arr = all.reverse();
+    for (let idx = 0; idx < 12; idx++) {
+        const count = all[idx];
+        let text;
+
+        if (idx === 0) text = "이번주";
+        else if (idx === 1) text = "저번주"
+        else text = `${idx}주전`;
+        
+        chartData.push({ name: text, value: count });
+    }
+    const target = util.DomUtil.querySelector(document, ".bar-area .chart-area");
+	const rect = util.StyleUtil.getBoundingClientRect(target);
+    const { width, height } = rect;
+    const barChart = new BarChart(target, chartData, { attr: { width, height } });
+};
 
 window.addEventListener("load", init);

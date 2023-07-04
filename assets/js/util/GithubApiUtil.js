@@ -20,10 +20,13 @@ class GithubApiUtil {
     get url() {
         return {
             commit: {
-                list: `/repos/${this.#owner}/${this.#repo}/commits`, // 해당 레파지토리의 커밋 리스트 반환
+                list: `GET /repos/${this.#owner}/${this.#repo}/commits`, // 해당 레파지토리의 커밋 리스트 반환
+                count: {
+                    weekly: `GET /repos/${this.#owner}/${this.#repo}/stats/participation`
+                }
             },
             repo: {
-                languages: `/repos/${this.#owner}/${this.#repo}/languages`, // 레파지토리 내 커밋된 프로그래밍 언어 파일 라인 수
+                languages: `GET /repos/${this.#owner}/${this.#repo}/languages`, // 레파지토리 내 커밋된 프로그래밍 언어 파일 라인 수
             }
         }
     }
@@ -31,7 +34,6 @@ class GithubApiUtil {
     async #api(url, option) {
         const { owner, repo, headers, ...remain } = { ...option };
 
-        window.qqq = this.#octokit;
         const response = await this.#octokit.request(url, {
             owner: this.#owner,
             repo: this.#repo,
@@ -46,7 +48,7 @@ class GithubApiUtil {
 
     async callApi(key, option) {
         const url = util.CommonUtil.find(this.url, key);
-        return this.#api(`GET ${url}`, option);
+        return this.#api(`${url}`, option);
     }
 }
 

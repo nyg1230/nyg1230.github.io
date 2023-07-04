@@ -11,6 +11,9 @@
 			&.bar-area {
 				grid-column: 1 / span 4;
 				grid-row: 1 / span 2;
+				& .chart-area {
+					min-height: 200px;
+				}
 			}
 
 			&.pie-area {
@@ -37,7 +40,7 @@
 						& > div {
 							border: var(--border);
 							padding: var(--pading-spacing);
-							border-radius: 4px;
+							border-radius: 2px;
 						}
 
 						& .date {

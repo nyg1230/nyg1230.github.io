@@ -1,5 +1,5 @@
-import Chart from "/assets/js/chart/Chart.js";
-import * as util from "/assets/js/util/utils.js";
+import Chart from "./Chart.js";
+import * as util from "../util/Utils.js";
 
 const color = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#000080", "#6A0DAD"];
 class PieChart extends Chart {
@@ -74,7 +74,7 @@ class PieChart extends Chart {
                 const _pieOption = util.CommonUtil.find(pie, `${idx}`);
 				const { mag = 1, ...pieOption } = { ..._pieOption };
                 const opt = { ...commonPieOption, ...pieOption };
-                this.builder.arc(point, size * mag, [st, st + ag * cnt / repeat], "fill", { fillStyle: color[idx], ...opt });
+                this.builder.arc(point, size * mag, [st, st + ag * cnt / repeat], "fill", { style: { fillStyle: color[idx], ...opt } });
             });
 
             if (++cnt > repeat) {
