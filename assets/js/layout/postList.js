@@ -44,13 +44,13 @@ const setBreadCrumb = () => {
 const postListTemplate = `
 <div class="post">
 	<div class="thumbnail">
-		<img src="{{thumbnail}}" onerror='this.src="/assets/img/empty/no_thumbnail.png"'>
+		<img src="/assets/img/post/thumbnail/{{thumbnail}}" onerror='this.src="/assets/img/empty/no_thumbnail.png"'>
 	</div>
 	<div class="content">
 		<div class="title ellipsis">{{title}}</div>
 		<div class="summary ellipsis">
 			{{ categories }}
-			{{content}}
+			{{ content }}
 		</div>
 		<div class="footer">
 			<a href="{{url}}">more</a>
