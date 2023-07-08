@@ -4,6 +4,7 @@ import GithubApiUtil from "/assets/js/util/GithubApiUtil.js";
 import DomUtil from "/assets/js/util/DomUtil.js";
 import TooltipUtil from "/assets/js/util/TooltipUtil.js";
 import StyleUtil from "/assets/js/util/StyleUtil.js";
+import AnimationUtil from "/assets/js/util/AnimationUtil.js";
 
 export {
 	CommonUtil,
@@ -11,5 +12,6 @@ export {
 	GithubApiUtil,
 	DomUtil,
     TooltipUtil,
-    StyleUtil
+    StyleUtil,
+	AnimationUtil
 };

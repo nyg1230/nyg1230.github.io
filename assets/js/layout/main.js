@@ -54,7 +54,7 @@ const drawPieChart = async () => {
 	const target = util.DomUtil.querySelector(document, ".pie-area .chart-area");
 	const rect = util.StyleUtil.getBoundingClientRect(target);
 	const { width, height } = rect;
-	const pieChart = new PieChart(target, pieData, { attr: { width, height } });
+	const pieChart = new PieChart(target, { data: pieData, option: {} }, { attr: { width, height } });
 };
 
 const drawBarChart = async () => {
@@ -78,7 +78,7 @@ const drawBarChart = async () => {
     const target = util.DomUtil.querySelector(document, ".bar-area .chart-area");
 	const rect = util.StyleUtil.getBoundingClientRect(target);
     const { width, height } = rect;
-    const barChart = new BarChart(target, chartData, { attr: { width, height } });
+    const barChart = new BarChart(target, { data: chartData, option: {} }, { attr: { width, height } });
 };
 
 window.addEventListener("load", init);

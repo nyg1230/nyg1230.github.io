@@ -4,20 +4,31 @@ import * as util from "/assets/js/util/utils.js";
 const color = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#000080", "#6A0DAD"];
 class PieChart extends Chart {
     #info;
-	#option = {
-		useLegend: false,
-		useTooltip: true
-	}
 
-    get startAngle() {
-        return -Math.PI / 2;
+    initOption() {
+        const option = {
+            chart: {
+                startAngle: -Math.PI / 2,
+                scale: 0.9
+            }
+        };
+
+        return option;
     }
 
-    parseChartData() {
-        const totalCount = this.data.reduce((acc, val) => acc += Number(val.value), 0);
-        const data = [];
-        let tmpAngle = this.startAngle;
-        this.data.sort((a, b) => (a.value < b.value)).forEach((d, idx) => {
+    parseOption(param) {}
+
+    /**
+     * 현 차트를 그리기 위한 데이터로 파싱하는 함수
+     * @param {Array} data 전처리 이전 데이터
+     * @returns 차트에 사용할 파싱 데이터
+     */
+    parseChartData(data) {
+        const totalCount = data.reduce((acc, val) => acc += Number(val.value), 0);
+        const parseData = [];
+        const startAngle = util.CommonUtil.find(this.option, "chart.startAngle");
+        let tmpAngle = startAngle;
+        data.sort((a, b) => (a.value < b.value)).forEach((d, idx) => {
             const { name, value } = { ...d };
             const ratio = util.CommonUtil.round(value / totalCount, 5);
             const stAngle = tmpAngle;
@@ -30,54 +41,64 @@ class PieChart extends Chart {
                 st: stAngle,
                 ag: angle,
                 degree: {
-                    st: (stAngle - this.startAngle) * 180 / Math.PI,
-                    ed: (stAngle + angle - this.startAngle) * 180 / Math.PI
+                    st: (stAngle - startAngle) * 180 / Math.PI,
+                    ed: (stAngle + angle - startAngle) * 180 / Math.PI
                 },
                 index: idx
             };
-            data.push(tmp);
+            parseData.push(tmp);
         });
 
         const chartData = {
             total: totalCount,
-            data: data
+            data: parseData
         };
 
         return chartData;
     }
 
+    /**
+     * wrapping 함수
+     */
     draw() {
         this.drawChart();
     }
 
+    /**
+     * 각 데이터의 비율 및 theta 값을 가져와 여러 조각을 일제히 그리게 함
+     * @param {Boolean} useAnimation 에니메이션 사용 여부
+     * @param {Object} option 단발성으로 사용할 옵션
+     */
     drawChart(useAnimation = true, option) {
-        this.clear();
+        option = util.CommonUtil.shallowMerge(option, this.option);
 
         const { data } = { ...this.chartData };
-        const { pie, label } = { ...option };
+        const { pie, label, animation: { type, speed } } = { ...option };
+        const scale = util.CommonUtil.find(this.option, "chart.scale", 0.9);
         const { all: commonPieOption } = { ...pie };
+
+        const animation = util.AnimationUtil.getAnimation(type, speed, useAnimation);
 
         const canvasRect = util.StyleUtil.getBoundingClientRect(this.builder.canvas);
         const { width, height } = canvasRect;
         const _width = width;
         let size = _width > height ? height : _width;
-        size = size / 2 * 0.9;
+        size = size / 2 * scale;
         const point = [_width / 2, height / 2];
-
-        let cnt = 1;
-        let repeat = useAnimation ? 70 : 1;
 
         const fn = () => {
             this.clear();
+            const progressRate = animation.shift();
+
             data.forEach((d, idx) => {
                 const { st, ag } = { ...d };
                 const _pieOption = util.CommonUtil.find(pie, `${idx}`);
 				const { mag = 1, ...pieOption } = { ..._pieOption };
                 const opt = { ...commonPieOption, ...pieOption };
-                this.builder.arc(point, size * mag, [st, st + ag * cnt / repeat], "fill", { style: { fillStyle: color[idx], ...opt } });
+                this.builder.arc(point, size * mag, [st, st + ag * progressRate], "fill", { style: { fillStyle: color[idx], ...opt } });
             });
 
-            if (++cnt > repeat) {
+            if (util.CommonUtil.isEmpty(animation)) {
                 const [x, y] = [...point];
                 this.#info = { x: x, y: y, r: size };
                 this.drawDataLabel(data, label);
@@ -90,6 +111,11 @@ class PieChart extends Chart {
         window.requestAnimationFrame(fn);
     }
 
+    /**
+     * 파이의 조각 위에 데이터 라벨을 그리는 함수
+     * @param {Array} data 차트를 그리기 위한 파싱이 완료된 데이터
+     * @param {Object} option 추가 옵션
+     */
     drawDataLabel(data = [], option) {
         const { x, y, r } = { ...this.#info };
         const { all } = { ...option };
@@ -114,6 +140,11 @@ class PieChart extends Chart {
         });
     }
 
+    /**
+     * 파이 조각 위에 표현할 문자열을 반환하는 함수
+     * @param {Object} data 파이 조각 하나에 대한 파싱된 데이터
+     * @returns 데이터 라벨 문자열
+     */
     getDataLabelText(data) {
         const { name, value, ratio = 0} = { ...data };
         return `${name}`;
@@ -148,10 +179,17 @@ class PieChart extends Chart {
         ], "stroke", { strokeStyle: "black"} );
     }
 
+    /**
+     * x, y 좌표를 통하여 파이 내부인지 확인 후 툴팁에 그릴 내용을 반환하는 함수
+     * @param {PointerEvent} e MouseMove에서 발생한 이벤트
+     * @param {Number} x 마우스 커서의 x 좌표
+     * @param {Number} y 마우스 커서의 y 좌표
+     * @returns 툴팁 내용
+     */
     setTooltipContent(e, x, y) {
         let html;
 
-        if (this.checkInPie(x, y)) {
+        if (this.#checkInPie(x, y)) {
             const data = this.#getTooltipData(x, y);
             const { name, value, ratio, index } = { ...data };
             const { name: oName } = { ...this._old };
@@ -181,12 +219,18 @@ class PieChart extends Chart {
                 this._old = null;
             }
         }
-        
 
         return html
     }
 
-    checkInPie(x, y) {
+    /**
+     * x^2 + y^2 <= r^2 공식을 사용하여 마우스 커서가 파이 내부인지 확인하는 함수
+     * 위 공식을 직접적으로 바로 호출하지 않고 사전에 단순 계산으로 분기 처리 이후 수행
+     * @param {Number} x 마우스 커서 x 좌표
+     * @param {Number} y 마우스 커서 y 좌표
+     * @returns 파이 내부 여부 참거짓 값
+     */
+    #checkInPie(x, y) {
         const { x: _x, y: _y, r } = { ...this.#info };
         const gapX = Math.abs(x - _x);
         const gapY = Math.abs(y - _y);
@@ -202,7 +246,12 @@ class PieChart extends Chart {
         return result;
     }
 
-    
+    /**
+     * 커서가 존재하는 위치의 파싱 데이터를 반환하는 함수
+     * @param {Number} x 마우스 커서 x 좌표
+     * @param {Number} y 마우스 커서 y 좌표
+     * @returns 커서 위치에 있는 데이터
+     */
     #getTooltipData(x, y) {
         const degree = this.#getDegree(x, y);
         const { data: _data } = { ...this.chartData };
@@ -214,9 +263,16 @@ class PieChart extends Chart {
         return data;
     }
 
+    /**
+     * x, y 좌표와 파이가 그려진 중앙 좌표를 통해 12시 기준으로 radian을 반환하는 함수
+     * @param {Number} x 마우스 커서 x 좌표
+     * @param {Number} y 마우스 커서 y 좌표
+     * @returns radian
+     */
     #getDegree(x, y) {
         const { x: _x, y: _y } = { ...this.#info };
-        const radian = (Math.atan2(y - _y, x - _x) - this.startAngle) * 180 / Math.PI;
+        const startAngle = util.CommonUtil.find(this.option, "chart.startAngle");
+        const radian = (Math.atan2(y - _y, x - _x) - startAngle) * 180 / Math.PI;
         return radian < 0 ? radian + 360 : radian;
     }
 }
