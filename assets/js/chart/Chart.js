@@ -80,10 +80,10 @@ class Chart {
      * @returns 처리 후 병합할 옵션
      */
     parseOption(param) {
-        return {};
+        return param;
     }
     #parseOption(param) {
-        if (util.CommonUtil.isNull(param)) {
+        if (util.CommonUtil.isEmpty(param)) {
             this.#option = this.#commonOption
         } else {
             this.#option = util.CommonUtil.shallowMerge(this.#commonOption, this.parseOption(param));

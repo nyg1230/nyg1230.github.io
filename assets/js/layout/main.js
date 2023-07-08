@@ -63,9 +63,10 @@ const drawBarChart = async () => {
     const { all, owner }= { ...data };
     const len = all.length;
     const chartData = [];
+    const weekCount = 12;
 
     const arr = all.reverse();
-    for (let idx = 0; idx < 12; idx++) {
+    for (let idx = 0; idx < weekCount; idx++) {
         const count = all[idx];
         let text;
 
@@ -78,7 +79,12 @@ const drawBarChart = async () => {
     const target = util.DomUtil.querySelector(document, ".bar-area .chart-area");
 	const rect = util.StyleUtil.getBoundingClientRect(target);
     const { width, height } = rect;
-    const barChart = new BarChart(target, { data: chartData, option: {} }, { attr: { width, height } });
+    const option = {
+        space: {
+            l: 0.03, r: 0.01, t: 0.05, b: 0.15
+        }
+    };
+    const barChart = new BarChart(target, { data: chartData, option }, { attr: { width, height } });
 };
 
 window.addEventListener("load", init);
