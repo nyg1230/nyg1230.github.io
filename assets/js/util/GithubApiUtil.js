@@ -1,8 +1,8 @@
-import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
+import { Octokit } from "https://esm.sh/@octokit/core";
 import * as util from "/assets/js/util/utils.js"
 
 class GithubApiUtil {
-    #key = "Z2hwX2x1UlIzWlBpbVlFcXF2bTBtTTJXVFlpc3c1TzdxczFUVGc5Qw==";
+    #key = "Z2hwX25OeWNrOWVhdmt6N25kNWNodGdGWGpQeklnalVMdTE2dkFqYg==";
     #api_version = "2022-11-28";
     #owner;
     #repo;

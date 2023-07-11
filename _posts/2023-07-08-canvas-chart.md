@@ -295,4 +295,21 @@ breadcrumb:
     
     1. #### Bar Chart
         1. ##### Bar Redner
+
+            ``` js
+            /**
+             * 전달 받은 데이터를 파이 차트를 그릴 수 있게 파싱을 진행한다.
+             * 파싱 전후 데이터는 아래와 같다
+             */
+            const preData = {
+                data: {
+                    { name: "amy", value: 200 },
+                    { name: "ban", value: 1500 },
+                    { name: "charly", value: 800 },
+                    { name: "deny", value: 1234 },
+                    { name: "emma", value: 1000 },
+                },
+                option: {}
+            };
+            ```
         1. ##### Bar Tooltip
