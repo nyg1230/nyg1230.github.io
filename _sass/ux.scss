@@ -26,11 +26,17 @@ a {
 		}
 		
 		nav {
+			height: 100%;
 			width: var(--width);
 		}
 
 		aside {
 			width: var(--width);
+			height: 10vh;
+			
+			& .image {
+				background-image: url(/assets/img/etc/banner_horison.png);
+			}
 		}
 	}
 }
@@ -52,6 +58,7 @@ header {
 nav {
 	padding: 6px;
 	width: 10vw;
+	height: 90vh;
 	--visibility: hidden;
 	--sub-menu-height: 0vh;
 	--hover-transition: all 500ms;
@@ -168,6 +175,13 @@ nav {
 
 aside {
 	width: 10vw;
+	height: 90vh;
+	& .image {
+		height: 100%;
+		background-image: url(/assets/img/etc/banner_vertical.png);
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
 }
 
 section {
@@ -180,6 +194,7 @@ article {
 	max-width: 960px;
 	width: 100%;
 	padding: 8px;
+	height: 100%;
 }
 
 .breadcrumb {
