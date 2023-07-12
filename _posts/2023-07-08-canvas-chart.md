@@ -301,15 +301,118 @@ breadcrumb:
              * 전달 받은 데이터를 파이 차트를 그릴 수 있게 파싱을 진행한다.
              * 파싱 전후 데이터는 아래와 같다
              */
-            const preData = {
-                data: {
-                    { name: "amy", value: 200 },
-                    { name: "ban", value: 1500 },
-                    { name: "charly", value: 800 },
-                    { name: "deny", value: 1234 },
-                    { name: "emma", value: 1000 },
+            const preData = [
+                {
+                    "name": "이번주",
+                    "value": 8
                 },
-                option: {}
-            };
+                {
+                    "name": "저번주",
+                    "value": 2
+                },
+                    ...
+                {
+                    "name": "11주전",
+                    "value": 0
+                }
+            ]
+
+            /**
+             * 최소, 최대값, 주축의 간격
+             * ratio는 최대값에 대한 비율 막대를 그릴 때 사용함
+             */
+            const parseData = {
+                min: 0,
+                max: 20,
+                major: 4,
+                data: [
+                    {
+                    "name": "이번주",
+                    "value": 8,
+                    "ratio": 0.4
+                    },
+                    {
+                    "name": "저번주",
+                    "value": 2,
+                    "ratio": 0.1
+                    },
+                    ...
+                    {
+                    "name": "11주전",
+                    "value": 0,
+                    "ratio": 0
+                    }
+                ]
+            }
+            ```
+
+            ``` js
+            /**
+             * 위와 같이 파싱된 데이터를 기반으로 fn 함수를 정의한다.
+             */
+            drawChart(useAnimation = true, option) {
+                // 단발성 옵션
+                option = util.CommonUtil.shallowMerge(option, this.option);
+
+                // 사전에 필요한 데이터 선언
+                const { space, axis, animation: { type, speed } } = { ...option };
+                const animation = util.AnimationUtil.getAnimation(type, speed, useAnimation);
+
+                const canvasRect = util.StyleUtil.getBoundingClientRect(this.builder.canvas);
+                const { width, height } = canvasRect;
+                // 위 아래 왼쪽 오른쪽 여백, 비율로 정의됨
+                const { l, r, t, b } = { ...space };
+
+                const x = width * l;
+                const y = height * (1 - b);
+                const xl = width * (1 - (l + r));
+                const yl = height * (1 - (b + t));
+
+                const { data } = { ...this.chartData };
+                const spaceRatio = 0.1;
+                const xDataAxis = xl / data.length;
+                const spaceWidth = xDataAxis * spaceRatio;
+                const barWidth = xDataAxis * (1 - spaceRatio * 2);
+
+                const fn = () => {
+                    this.clear();
+                    const progressRate = animation.shift();
+
+                    data.forEach((d, idx) => {
+                        const { ratio } = { ...d };
+                        const sx = (x + spaceWidth) + (xDataAxis * idx);
+                        const h = yl * ratio * progressRate;
+                        const sy = y - h;
+                        this.builder.rect([sx, sy], barWidth, h, "fill", { style: { fillStyle: color[0] } })
+                    });
+
+                    xAxis(x, y, xl);
+                    yAxis(x, y, yl);
+
+                    this.#info = {
+                        x, y, xl, yl, spaceRatio, xDataAxis
+                    }
+                    this.drawDataLabel(true, progressRate);
+                    if (util.CommonUtil.isEmpty(animation)) {
+                        window.cancelAnimationFrame(fn);
+                    } else {
+                        window.requestAnimationFrame(fn);
+                    }
+                };
+
+                const xAxis = (x, y, l) => {
+                    const st = [x, y];
+                    const ed = [x + l, y];
+                    this.builder.lines([st, ed]);
+                };
+
+                const yAxis = (x, y, l) => {
+                    const st = [x, y];
+                    const ed = [x, y - l];
+                    this.builder.lines([st, ed]);
+                };
+
+                window.requestAnimationFrame(fn);
+            }
             ```
         1. ##### Bar Tooltip
