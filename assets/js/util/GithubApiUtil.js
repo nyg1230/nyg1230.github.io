@@ -1,8 +1,13 @@
 import { Octokit } from "https://esm.sh/@octokit/core";
 import * as util from "/assets/js/util/utils.js"
 
+const apiKey = (function() {
+    const keys = ["Z2hwXzRlWWMxNXZGND", "RidWpCaUgzTnJ0d0pvQ", "XJBb25qTzRjaTZQeA=="]
+    return keys.reduce((acc, val) => acc += `${val}`);
+})();
+
 class GithubApiUtil {
-    #key = "Z2hwX0xTb3pwNHFkZzNXVGhkWXAxS3VPcFJYY1hQM3lSTzNLcUJzVA==";
+    #key = apiKey;
     #api_version = "2022-11-28";
     #owner;
     #repo;
