@@ -2,7 +2,7 @@ import { Octokit } from "https://esm.sh/@octokit/core";
 import * as util from "/assets/js/util/utils.js"
 
 class GithubApiUtil {
-    #key = "Z2hwX25OeWNrOWVhdmt6N25kNWNodGdGWGpQeklnalVMdTE2dkFqYg==";
+    #key = "Z2hwX2d1NEFLaUp4UEF0dDhUSGF6UkxSMWsxeGZhclJlZzA1OUtieg==";
     #api_version = "2022-11-28";
     #owner;
     #repo;
