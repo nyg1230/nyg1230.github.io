@@ -9,12 +9,6 @@ let styleSheet;
     const styles = new CSSStyleSheet();
     styles.replaceSync(text);
 
-    const urlReg = /(?<=(@import url\(["'])).*?(?=[\"\)])/;
-    text.replace(urlReg, async (url) => {
-        const res = await fetch(url);
-        const cssText = await res.text();
-        styles.replaceSync(cssText);
-    });
     styleSheet = styles;
 })();
 

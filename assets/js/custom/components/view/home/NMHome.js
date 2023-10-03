@@ -8,15 +8,17 @@ import NMList from "/assets/js/core/components/component/NMList.js"
 import NMGrid from "/assets/js/core/components/component/NMGrid.js"
 /* model */
 import NMGithubModel from "/assets/js/custom/model/NMGithubModel.js";
+import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
 /* intent */
 import githubIntent from "/assets/js/custom/intent/NMGithubIntent.js";
+import jsonItent from "/assets/js/custom/intent/NMJsonIntent.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
 const weeklyLimit = 10;
 
 export default class NMHome extends NMView {
-    modelList = [NMGithubModel];
+    modelList = [NMGithubModel, NMJsonModel];
 
     static get name() {
         return "nm-home";
@@ -113,6 +115,14 @@ export default class NMHome extends NMView {
                     }
                 }
             }
+
+            .commit-list-grid::part(nm-grid) {
+                --content-height: 150px;
+            }
+
+            .recent-board-list {
+                --template-columns: 100%;
+            }
         `;
     }
 
@@ -130,6 +140,7 @@ export default class NMHome extends NMView {
                     <nm-label class="" value="commit.list" range="git" param="1,23"></nm-label>
                 </div>
                 <div class="list-area">
+                    <!--
                     <nm-list class="commit-list">
                         <template>
                             <div class="row">
@@ -145,6 +156,8 @@ export default class NMHome extends NMView {
                             </div>
                         </template>
                     </nm-list>
+                    -->
+                    <nm-grid class="commit-list-grid"></nm-grid>
                 </div>
             </div>
             <div class="recent-list-area">
@@ -152,7 +165,18 @@ export default class NMHome extends NMView {
                     <nm-label class="" value="recent.list" range="board"></nm-label>
                 </div>
 				<div class="test">
-					<nm-grid class="test"></nm-grid>
+                    <nm-list class="recent-board-list">
+                        <template>
+                            <div class="row">
+                                <div class="board-title-area">
+                                    <nm-label class="title-label title medium" data-value="title"></nm-label>
+                                </div>
+                                <div class="write-date-area">
+                                    <nm-label class="date-lagel sub-title medium" data-value="date" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
+                                </div>
+                            </div>
+                        </template>
+                    </nm-list>
 				</div>
             </div>
             <div class="tag-list-area">
@@ -171,48 +195,9 @@ export default class NMHome extends NMView {
     afterRender() {
         super.afterRender();
         this.getChartDatas();
-		this.test();
+        this.getBoardList();
+        this.getCategoryList();
     }
-
-	test() {
-		const grid = util.DomUtil.querySelector(this, "nm-grid.test");
-		const data = {
-			data: {
-				columns: [
-					{ key: "id", name: "Origin ID" },
-					{ key: "name", name: "new Name", sort: true },
-                    { key: "email", name: "longlonglongString", width: 300, sort: true },
-					{ key: "etc" }
-				],
-				list: [
-					{ id: 0, name: "aaaa", email: "test@gmail.com", etc: "" },
-					{ id: 1, name: "bbbb", email: "test@gmail.com", etc: "" },
-					{ id: 2, name: "cccc", email: "test@gmail.com", etc: "" },
-					{ id: 3, name: "dddd", email: "test@gmail.com", etc: "" },
-					{ id: 4, name: "eeee", email: "test@gmail.com", etc: "" },
-					{ id: 5, name: "ffff", email: "test@gmail.com", etc: "" },
-					{ id: 6, name: "gggg", email: "test@gmail.com", etc: "" },
-					{ id: 7, name: "hhhh", email: "test@gmail.com", etc: "" },
-					{ id: 8, name: "iiii", email: "test@gmail.com", etc: "" },
-					{ id: 5, name: "ffff", email: "test@gmail.com", etc: "" },
-					{ id: 6, name: "gggg", email: "test@gmail.com", etc: "" },
-					{ id: 7, name: "hhhh", email: "test@gmail.com", etc: "" },
-					{ id: 8, name: "iiii", email: "test@gmail.com", etc: "" },
-					{ id: 5, name: "ffff", email: "test@gmail.com", etc: "" },
-					{ id: 6, name: "gggg", email: "test@gmail.com", etc: "" },
-					{ id: 7, name: "hhhh", email: "test@gmail.com", etc: "" },
-					{ id: 8, name: "iiii", email: "test@gmail.com", etc: "" },
-					{ id: 5, name: "ffff", email: "test@gmail.com", etc: "" },
-					{ id: 6, name: "gggg", email: "test@gmail.com", etc: "" },
-					{ id: 7, name: "hhhh", email: "test@gmail.com", etc: "" },
-					{ id: 8, name: "iiii", email: "test@gmail.com", etc: "" }
-				]
-			},
-			option: {}
-		}
-
-		grid.setData(data);
-	}
 
     onModelChange(e) {
         const { detail } = e;
@@ -225,6 +210,12 @@ export default class NMHome extends NMView {
                 this.setCommitList(data);
             } else if (property === "weeklyCommitLists") {
                 this.setWeeklyCommitLists(data);
+            }
+        } else if (name === NMJsonModel.name) {
+            if (property === "recentBoardList") {
+                this.setRecentBoards(data);
+            } else if (property === "categoryList") {
+                this.setCategoryList(data);
             }
         }
     }
@@ -302,18 +293,44 @@ export default class NMHome extends NMView {
     }
 
     setCommitList(data) {
-        const list = util.DomUtil.querySelector(this, ".commit-list");
+        // const list = util.DomUtil.querySelector(this, ".commit-list");
+        // const [d] = [...data];
+        // const { commitList } = { ...d };
+        // const listData = {
+        //     header: {
+        //         name: { value: "writer", range: "common", tooltip: false },
+        //         date: { value: "date", range: "common", type: "", tooltip: false },
+        //         message: { value: "message", range: "common", tooltip: false }
+        //     },
+        //     list: commitList
+        // };
+        // list.setData(listData);
+
+        const grid = util.DomUtil.querySelector(this, ".commit-list-grid");
         const [d] = [...data];
         const { commitList } = { ...d };
-        const listData = {
-            header: {
-                name: { value: "writer", range: "common", tooltip: false },
-                date: { value: "date", range: "common", type: "", tooltip: false },
-                message: { value: "message", range: "common", tooltip: false }
-            },
-            list: commitList
+        const gridData = {
+            data: {
+                columns: [
+                    { key: "name", name: "writer", width: 75 },
+                    { key: "date", name: "date", width: 150 },
+                    { key: "message", name: "message", width: 200 }
+                ],
+                list: commitList
+            }
         };
-        list.setData(listData);
+        console.log(commitList);
+
+        grid.setData(gridData);
+    }
+
+    setRecentBoards(data) {
+        const list = util.DomUtil.querySelector(this, ".recent-board-list");
+		list.setData(data);
+    }
+
+    setCategoryList(data) {
+        console.log(data);
     }
 
     getChartDatas() {
@@ -324,6 +341,14 @@ export default class NMHome extends NMView {
             { owner: "nyg1230", repo: "nyg1230.github.io", ext: { name: "repo: git.io" } }
         ]);
         githubIntent.getCommitLists([{ owner: "nyg1230", repo: "vanillaFE", ext: { name: "fe", limit: 5 } }]);
+    }
+
+    getBoardList() {
+        jsonItent.getRecentBoardList({ size: 5 });
+    }
+
+    getCategoryList() {
+        jsonItent.getCategoryLis();
     }
 }
 
