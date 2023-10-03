@@ -4,39 +4,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<script src="/assets/js/layout/main.js" type="module"></script>
+	<script src="/assets/js/app.js" type="module"></script>
 	<title>{{ site.title }}</title>
 </head>
 <body>
-	<div class="wrapper theme">
-		{% include header.html %}
-		<section>
-			{% include nav.html %}
-			<article class="grid main-article">
-				<div class="grid-item bar-area">
-					<div class="title-before">주간 커밋 횟수</div>
-					<div class="chart-area"></div>
-				</div>
-				<div class="grid-item pie-area">
-					<div class="title-before">저장소 내 언어 현황</div>
-					<div class="chart-area"></div>
-				</div>
-				<div class="grid-item commit-area">
-					<div class="title-before">최근 커밋 이력</div>
-					<div class="commit-list table">
-					</div>
-				</div>
-				<div class="grid-item one-line">
-					{% include recentBoardList.html %}
-				</div>
-				<div class="grid-item one-line">
-					{% include categoryTagList.html %}
-				</div>
-			</article>
-			{% include aside.html %}
-		</section>
-		<!-- {% include footer.html %} -->
-	</div>
 </body>
 </html>
