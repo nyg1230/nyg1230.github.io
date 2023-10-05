@@ -4,8 +4,9 @@
 [
     {% for post in site.posts %}
     {
+      "oid": {{forloop.index}},
       "title": "{{ post.title }}",
-      "date": "{{ post.date | date: "%Y-%m-%d"}}",
+      "date": "{{ post.date | date: "%Y-%m-%d %H:%M:%S"}}",
       "categories": {{ post.categories | jsonify }},
       "url": "{{ post.url }}",
       "thumbnail": "{{ post.thumbnail}}"

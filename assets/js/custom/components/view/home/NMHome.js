@@ -2,6 +2,7 @@
 import { NMView, define } from "/assets/js/core/components/view/NMView.js";
 /* common */
 import * as util from "/assets/js/core/util/utils.js";
+import router from "/assets/js/core/router/NMRouter.js";
 /* component */
 import { NMChart } from "/assets/js/core/components/chart/NMChart.js";
 import NMList from "/assets/js/core/components/component/NMList.js"
@@ -120,6 +121,10 @@ export default class NMHome extends NMView {
                 --content-height: 150px;
             }
 
+            .recent-board-list-area {
+                padding: 0px 6px;
+            }
+
             .recent-board-list {
                 --template-columns: 100%;
             }
@@ -164,12 +169,12 @@ export default class NMHome extends NMView {
                 <div class="title-area">
                     <nm-label class="" value="recent.list" range="board"></nm-label>
                 </div>
-				<div class="test">
+				<div class="recent-board-list-area">
                     <nm-list class="recent-board-list">
                         <template>
                             <div class="row">
-                                <div class="board-title-area">
-                                    <nm-label class="title-label title medium" data-value="title"></nm-label>
+                                <div class="board-title-area ellipsis">
+                                    <nm-label class="title-label title medium" data-value="title" tooltip="true"></nm-label>
                                 </div>
                                 <div class="write-date-area">
                                     <nm-label class="date-lagel sub-title medium" data-value="date" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
@@ -190,6 +195,15 @@ export default class NMHome extends NMView {
 
     addEvent() {
         super.addEvent();
+        this.bindEvent(this, NMConst.eventName.LIST_ROW_CLICK, this.onListRowClick);
+    }
+
+    onListRowClick(e) {
+        const { detail } = e;
+        const { data } = { ...detail };
+        const { oid } = { ...data };
+
+        router.pushState(`main/body/board?oid=${oid}`)
     }
 
     afterRender() {
@@ -319,7 +333,6 @@ export default class NMHome extends NMView {
                 list: commitList
             }
         };
-        console.log(commitList);
 
         grid.setData(gridData);
     }

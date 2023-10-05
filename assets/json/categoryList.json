@@ -3,7 +3,10 @@
 {% capture json %}
 [
     {% for category in site.categories %}
-        "{{category | first}}"
+    {
+        "oid": {{forloop.index}},
+        "category": "{{category | first}}"
+    }
         {% unless forloop.last %},{% endunless %}
     {% endfor -%}
 ]

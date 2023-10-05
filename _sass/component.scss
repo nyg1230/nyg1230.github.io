@@ -2,12 +2,14 @@ nm-list {
     display: grid;
 
     --template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    --gap-r: 8px;
+    --gap-r: 4px;
     --gap-c: 2px;
     --hover-color-bg: var(--pale-dogwood);
     --hover-color: #000000;
     --color-border: var(--plein-air);
-    --row-padding: 0px;
+    --row-padding-lr: 6px;
+    --row-padding-tb: 4px;
+    --row-padding: var(--row-padding-tb) var(--row-padding-lr);
 
     & .row {
         display: grid;
@@ -18,10 +20,8 @@ nm-list {
         padding: var(--row-padding);
 
         &:not(.header):hover {
-            .item {
-                background-color: var(--hover-color-bg);
-                color: var(--hover-color)
-            }
+            background-color: var(--hover-color-bg);
+            color: var(--hover-color)
         }
         
         & .item {

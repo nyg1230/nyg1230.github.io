@@ -17,6 +17,14 @@ class NMJsonIntent extends NMIntent {
 
     }
 
+    getBoard(p) {
+        jsonEffect.getBoard(p);
+    }
+
+    getBoardWithContent(p) {
+        jsonEffect.getBoardWithContent(p);
+    }
+
     getCategoryLis(p) {
         jsonEffect.getCategoryLis(p);
     }
