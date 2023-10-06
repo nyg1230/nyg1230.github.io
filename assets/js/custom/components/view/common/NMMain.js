@@ -25,7 +25,8 @@ export default class NMMain extends NMView {
             .${this.clsName} {
                 width: 100%;
                 height: 100%;
-                overflow-y: scroll;
+                overflow-y: auto;
+				scroll-behavior: smooth;
             }
         `;
     }
@@ -36,7 +37,19 @@ export default class NMMain extends NMView {
                 </div>`;
     }
 
+	addEvent() {
+		super.addEvent();
+		this.bindEvent(this, NMConst.eventName.SCROLL_TO, this.onScrollTo);
+	}
+
     afterRender() {}
+
+	onScrollTo(e) {
+		const { detail } = e;
+
+		const container = util.DomUtil.querySelector(this, `.${this.clsName}`);
+		container.scrollTo({ ...detail });
+	}
 }
 
 define(NMMain);

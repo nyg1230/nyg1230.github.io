@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: 
 title:  "Canvas 및 JS를 활용한 차트 만들기"
 date:   2023-07-08 15:17:00 +0900
 author: nope

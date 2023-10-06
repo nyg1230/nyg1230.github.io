@@ -23,15 +23,28 @@ export default class NMBoardContent extends NMView {
     }
 
     get styles() {
-        return ``;
+        return `
+		.${this.clsName} {
+			border: solid 1px;
+		}
+		`;
     }
 
     get template() {
         return `
         <div class="${this.clsName}" part="${this.clsName}">
-            <slot></slot>
+            <div class="header">
+			</div>
+			<div class="content">
+				<slot><slot>
+			</div>
         </div>`;
     }
+
+	addEvent() {
+		super.addEvent();
+		this.bindEvent(this, NMConst.eventName.CLICK, this.onClick);
+	}
 
     afterRender() {
         super.afterRender();
@@ -45,6 +58,9 @@ export default class NMBoardContent extends NMView {
 
     setBoardContent(data) {
         console.log(data);
+		const { date, title, content } = { ...data };
+		this.innerHTML = "";
+		util.DomUtil.insertAdjacentHTML(this, content);
     }
 
     onModelChange(e) {
@@ -57,6 +73,27 @@ export default class NMBoardContent extends NMView {
             }
         }
     }
+
+	onClick(e) {
+		console.log(e);
+
+		const anchor = util.EventUtil.getDomFromEvent(e, "a");
+		if (anchor) {
+			let href = anchor.getAttribute("href");
+
+			const target = this.querySelector(`${href}`);
+			
+			if (target) {
+				const rect = target.getBoundingClientRect();
+				const { top } = rect;
+				console.log(top);
+
+				util.EventUtil.dispatchEvent(this, NMConst.eventName.SCROLL_TO, { top });
+			}
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	}
 }
 
 define(NMBoardContent);
