@@ -68,6 +68,21 @@ class NMRouter {
     }
     /* setting end */
 
+    getFullPath() {
+        let url;
+
+        if (this.#mode === "hash") {
+            location.hash.replace(/(?<=#).*/, (str) => {
+                url = str;
+            });
+        } else {
+            const { pathname, search } = window.location;
+            url = `${pathname}${search}`;
+        }
+
+        return url;
+    }
+
     getPathName() {
         let url = "";
 
@@ -125,9 +140,12 @@ class NMRouter {
     }
 
     pushState(url, param) {
+        if (url === this.getFullPath()) return;
+
         if (this.#mode === "hash") {
             url = `#${url}`
         }
+
         window.history.pushState(param, "", url);
         this.route({ path: this.getPathName(), ...param });
     }

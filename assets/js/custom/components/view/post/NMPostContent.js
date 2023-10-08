@@ -11,7 +11,7 @@ import jsonItent from "/assets/js/custom/intent/NMJsonIntent.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
-export default class NMBoardContent extends NMView {
+export default class NMPostContent extends NMView {
     modelList = [NMJsonModel];
 
     static get name() {
@@ -19,14 +19,25 @@ export default class NMBoardContent extends NMView {
     }
 
     get clsName() {
-        return NMBoardContent.name;
+        return NMPostContent.name;
     }
 
     get styles() {
         return `
 		.${this.clsName} {
-			border: solid 1px;
+            padding-top: 18px;
 		}
+
+        .header {
+            padding: 0px 12px;
+
+            & .title-area {}
+
+            & .title-area {}
+
+            & .title-area {}
+
+        }
 		`;
     }
 
@@ -34,11 +45,37 @@ export default class NMBoardContent extends NMView {
         return `
         <div class="${this.clsName}" part="${this.clsName}">
             <div class="header">
+                <div class="area title-area">
+                    <nm-label class="title large"></nm-label>
+                </div>
+                <div class="date-area">
+                    <nm-label class="sub-title medium" value="write.date" range="board"></nm-label>
+                    <nm-label class="sub-title medium write-date"></nm-label>
+                </div>
+                <div class="writer-area">
+                    <nm-label class="sub-title medium" value="wirter" range="board"></nm-label>
+                    <nm-label class="sub-title medium writer"></nm-label>
+                </div>
 			</div>
 			<div class="content">
-				<slot><slot>
 			</div>
         </div>`;
+    }
+
+    get #content() {
+        return util.DomUtil.querySelector(this, ".content");
+    }
+
+    get #title() {
+        return util.DomUtil.querySelector(this, ".title");
+    }
+
+    get #writeDate() {
+        return util.DomUtil.querySelector(this, ".write-date");
+    }
+
+    get #writer() {
+        return util.DomUtil.querySelector(this, ".writer");
     }
 
 	addEvent() {
@@ -57,10 +94,14 @@ export default class NMBoardContent extends NMView {
     }
 
     setBoardContent(data) {
-        console.log(data);
-		const { date, title, content } = { ...data };
-		this.innerHTML = "";
-		util.DomUtil.insertAdjacentHTML(this, content);
+		const { title, date, author, content } = { ...data };
+
+        this.#content.innerHTML = "";
+        this.#title.value = title;
+        this.#writeDate.value = date;
+        this.#writer.value = author;
+
+		util.DomUtil.insertAdjacentHTML(this.#content, content);
     }
 
     onModelChange(e) {
@@ -75,18 +116,15 @@ export default class NMBoardContent extends NMView {
     }
 
 	onClick(e) {
-		console.log(e);
-
 		const anchor = util.EventUtil.getDomFromEvent(e, "a");
 		if (anchor) {
 			let href = anchor.getAttribute("href");
 
-			const target = this.querySelector(`${href}`);
+			const target = util.DomUtil.querySelector(this, `${href}`);
 			
 			if (target) {
 				const rect = target.getBoundingClientRect();
 				const { top } = rect;
-				console.log(top);
 
 				util.EventUtil.dispatchEvent(this, NMConst.eventName.SCROLL_TO, { top });
 			}
@@ -96,4 +134,4 @@ export default class NMBoardContent extends NMView {
 	}
 }
 
-define(NMBoardContent);
+define(NMPostContent);

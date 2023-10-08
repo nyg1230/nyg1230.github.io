@@ -7,8 +7,11 @@ const english_us = {
         home: "Home",
         category: "Category"
     },
-    board: {
-        "recent.list": "Recent List"
+    post: {
+        "post": "Post",
+        "recent.post.list": "Recent Post List",
+        "wirter": "Writer",
+        "write.date": "Wrtie Date"
     },
     tag: {
         "tag.list": "Tag List"

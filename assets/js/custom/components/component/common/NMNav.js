@@ -1,17 +1,20 @@
 /* inherit */
-import { NMComponent, define } from "/assets/js/core/components/NMComponent.js";
+import { NMView, define } from "/assets/js/core/components/view/NMView.js";
 /* common */
 import * as util from "/assets/js/core/util/utils.js";
+import router from "/assets/js/core/router/NMRouter.js";
 /* component */
 import NMMenu from "/assets/js/core/components/component/NMMenu.js"
 import NMList from "/assets/js/core/components/component/NMList.js"
+/* model */
+import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
+/* intent */
+import jsonItent from "/assets/js/custom/intent/NMJsonIntent.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
-export default class NMNav extends NMComponent {
-    static get observedAttributes() {
-        return [];
-    }
+export default class NMNav extends NMView {
+    modelList = [NMJsonModel];
 
     static get name() {
         return "nm-nav";
@@ -32,6 +35,10 @@ export default class NMNav extends NMComponent {
                 font-weight: 700;
                 --row-padding: 0px 4px;
             }
+
+            nm-menu {
+                cursor: pointer;
+            }
         `;
     }
 
@@ -50,33 +57,81 @@ export default class NMNav extends NMComponent {
                         </nm-list>
                     </div>
                     <div class="menu">
-                        <nm-menu class="category-menu"></nm-menu>
+                        <nm-menu class="link-menu"></nm-menu>
                     </div>
                 </div>`;
     }
 
-    afterRender() {
-        const catMenu = util.DomUtil.querySelector(this, ".category-menu");
-        const data = [
-            {
-                value: "home",
-                range: "common"
-            },
-            {
-                value: "category",
-                range: "common",
-                data: [
-                    { value: "canvas", range: "" },
-                    { value: "js", range: "" },
-                    { value: "chart", range: "" }
-                ]
+    addEvent() {
+        super.addEvent();
+        this.bindEvent(this, NMConst.eventName.SELECT_MENU, this.onSelectMenu);
+    }
+
+    onSelectMenu(e) {
+        const { detail } = e;
+        const { data } = { ...detail };
+        const { url } = { ...data };
+
+        if (url) {
+            router.pushState(url);
+        }
+    }
+
+    onModelChange(e) {
+        const { detail } = e;
+        const { name, property, data } = { ...detail };
+        
+        if (name === NMJsonModel.name) {
+            if (property === "categoryList") {
+                this.setMenu(data);
             }
-        ];
-        catMenu.setData(data);
+        }
+    }
+
+    afterRender() {
+        super.afterRender();
 
         const linkList = util.DomUtil.querySelector(this, ".link-list");
         const linkDatas = Object.values(NMConst.env.profile.url);
         linkList && linkList.setData(linkDatas);
+
+        this.getCategorise();
+    }
+
+    getCategorise() {
+        jsonItent.getCategoryList();
+    }
+
+    setMenu(data) {
+        const menu = util.DomUtil.querySelector(this, ".link-menu");
+        data = data.map((d) => {
+            const { category } = { ...d };
+            return {
+                value: category,
+                url: `main/body/posts?categoryOid=${category}`
+            }
+        });
+
+        const menuData = [
+            {
+                value: "home",
+                range: "common",
+                url: "main/body/home"
+            },
+            {
+                value: "post",
+                range: "post",
+                url: "main/body/posts"
+            },
+            {
+                value: "category",
+                range: "common",
+                url: "main/body/categories",
+                data: [...data]
+            }
+        ];
+
+        menu.setData(menuData);
     }
 }
 

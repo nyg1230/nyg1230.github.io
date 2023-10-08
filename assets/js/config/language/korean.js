@@ -7,8 +7,11 @@ const korean = {
         home: "홈",
         category: "카테고리"
     },
-    board: {
-        "recent.list": "최근 목록"
+    post: {
+        "post": "작성글",
+        "recent.post.list": "최근 작성글 목록",
+        "wirter": "작성자",
+        "write.date": "작성일"
     },
     tag: {
         "tag.list": "태그 리스트"

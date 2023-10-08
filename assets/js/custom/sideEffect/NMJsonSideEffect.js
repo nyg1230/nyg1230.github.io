@@ -62,7 +62,7 @@ class NMJsonSideEffect extends NMSideEffect {
         NMJsonModel.set("board", { ...board, content: detail });
     }
 
-    getCategoryLis(p) {
+    getCategoryList(p) {
         const { keyword } = { ...p };
         let fn;
 

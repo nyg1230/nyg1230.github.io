@@ -1,0 +1,45 @@
+.md-board {
+    --annotation-color-area: green;
+    --annotation-color-one: green;
+    --code-block-bg-color:#EEEEEE;
+    --code-block-border-color: #DDD;
+    --reserved-word-color: #A463BF;
+    --declare-color: #2128A6;
+    --string-color: #C38654;
+    --number-color: #648C51;
+
+    padding: 0px 12px;
+
+    & h1 {
+        font-size: 20px;
+    }
+
+    & code {
+        & span {
+            &.cm { color: var(--annotation-color-area); }
+
+            &.c1 { color: var(--annotation-color-one); }
+
+            &.kd { color: var(--declare-color); }
+
+            &.nx { color: balck; }
+
+            &.k { color: var(--reserved-word-color); }
+
+            &.nb { color: #59A8D9; }
+
+            &.mf, &.mi { color: var(--number-color); }
+
+            &.s2, &.dl { color: var(--string-color); }
+        }
+    }
+
+    & pre {
+        &.highlight {
+            background-color: var(--code-block-bg-color);
+            border: 1px solid var(--code-block-border-color);
+            overflow: auto;
+            padding: 4px 8px;
+        }
+    }
+}

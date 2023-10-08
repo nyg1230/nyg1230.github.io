@@ -123,11 +123,16 @@ export default class NMHome extends NMView {
 
             .recent-board-list-area {
                 padding: 0px 6px;
+
+                & .recent-board-list {
+                    --template-columns: 100%;
+
+                    & .row {
+                        cursor: pointer;
+                    }
+                }
             }
 
-            .recent-board-list {
-                --template-columns: 100%;
-            }
         `;
     }
 
@@ -167,7 +172,7 @@ export default class NMHome extends NMView {
             </div>
             <div class="recent-list-area">
                 <div class="title-area">
-                    <nm-label class="" value="recent.list" range="board"></nm-label>
+                    <nm-label class="" value="recent.post.list" range="post"></nm-label>
                 </div>
 				<div class="recent-board-list-area">
                     <nm-list class="recent-board-list">
@@ -184,11 +189,6 @@ export default class NMHome extends NMView {
                     </nm-list>
 				</div>
             </div>
-            <div class="tag-list-area">
-                <div class="title-area">
-                    <nm-label class="" value="tag.list" range="tag"></nm-label>
-                </div>
-            </div>
         </div>
         `;
     }
@@ -203,14 +203,13 @@ export default class NMHome extends NMView {
         const { data } = { ...detail };
         const { oid } = { ...data };
 
-        router.pushState(`main/body/board?oid=${oid}`)
+        router.pushState(`main/body/post?oid=${oid}`)
     }
 
     afterRender() {
         super.afterRender();
         this.getChartDatas();
         this.getBoardList();
-        this.getCategoryList();
     }
 
     onModelChange(e) {
@@ -228,8 +227,6 @@ export default class NMHome extends NMView {
         } else if (name === NMJsonModel.name) {
             if (property === "recentBoardList") {
                 this.setRecentBoards(data);
-            } else if (property === "categoryList") {
-                this.setCategoryList(data);
             }
         }
     }
@@ -342,10 +339,6 @@ export default class NMHome extends NMView {
 		list.setData(data);
     }
 
-    setCategoryList(data) {
-        console.log(data);
-    }
-
     getChartDatas() {
         githubIntent.getCommitLanguages([{ owner: "nyg1230", repo: "vanillaFE" }]);
         githubIntent.getWeeklyCommitCount([
@@ -358,10 +351,6 @@ export default class NMHome extends NMView {
 
     getBoardList() {
         jsonItent.getRecentBoardList({ size: 5 });
-    }
-
-    getCategoryList() {
-        jsonItent.getCategoryLis();
     }
 }
 
