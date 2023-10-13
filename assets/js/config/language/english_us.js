@@ -11,7 +11,8 @@ const english_us = {
         "post": "Post",
         "recent.post.list": "Recent Post List",
         "wirter": "Writer",
-        "write.date": "Wrtie Date"
+        "write.date": "Wrtie Date",
+        "post.list": "Post List"
     },
     tag: {
         "tag.list": "Tag List"

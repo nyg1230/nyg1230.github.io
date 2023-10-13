@@ -11,7 +11,8 @@ const korean = {
         "post": "작성글",
         "recent.post.list": "최근 작성글 목록",
         "wirter": "작성자",
-        "write.date": "작성일"
+        "write.date": "작성일",
+        "post.list": "작성글 목록"
     },
     tag: {
         "tag.list": "태그 리스트"

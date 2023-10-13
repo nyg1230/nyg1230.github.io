@@ -16,7 +16,9 @@ const url = {
     boardList: `${baseUrl}/boardList.json`,
     categoryList: `${baseUrl}/categoryList.json`,
     board: `${baseUrl}/boardList.json`
-}
+};
+
+let cacheBoardList;
 
 class NMJsonSideEffect extends NMSideEffect {
     constructor(...arg) {
@@ -34,16 +36,69 @@ class NMJsonSideEffect extends NMSideEffect {
             });
     }
 
-    #getBoareList() {
-        return fetch(url.boardList).then((res) => res.json())
+    async #getBoareList() {
+        let boardList;
+
+        if (!cacheBoardList) {
+            const res = await fetch(url.boardList);
+            const json = await res.json();
+            cacheBoardList = json;
+        }
+
+        boardList = cacheBoardList;
+
+        return boardList;
     }
 
-    getBoareList(p) {
-        const { keyword, size, page, sort, order } = { ...p };
+    async getBoareList(p) {
+        const { keyword, category, size, page, sort, order } = { ...p };
+
+        let boardList = await this.#getBoareList();
+        let sortFn;
+        let filterFn = (b) => true;
+
+        if (order === "asc") sortFn = (a, b) => a[sort] > b[sort] ? 1 : -1;
+        else sortFn = (a, b) => a[sort] < b[sort] ? 1 : -1;
+
+        if (util.CommonUtil.isNotEmpty(keyword)) {
+            const fn = filterFn.bind(null);
+            filterFn = (b) => {
+                const bool = fn(b);
+                const reuslt = util.CommonUtil.caseSensitiveCompare(b.title, keyword, false);
+                
+                return reuslt && bool;
+            };
+        }
+
+        if (util.CommonUtil.isNotEmpty(category)) {
+            const fn = filterFn.bind(null);
+            filterFn = (b) => {
+                const bool = fn(b);
+                const reuslt = b.categories.includes(category);
+                
+                return reuslt && bool;
+            };
+        }
+
+        const pagingBoardList = [...boardList]
+                        .toSorted(sortFn)
+                        .filter(filterFn)
+                        .splice(size * page, size * (page + 1));
+
+        const pageInfo = {
+            totalSize: boardList.length,
+            page: page,
+            size: size
+        };
+        
+        NMJsonModel.set("boardList", {
+            list: pagingBoardList,
+            pageInfo: pageInfo
+        });
     }
 
-    #getBoard(oid) {
-        return this.#getBoareList().then((json) => json.find((d) => `${d.oid}` === `${oid}`));
+    async #getBoard(oid) {
+        return await this.#getBoareList().then((json) => json.find((d) => `${d.oid}` === `${oid}`));
     }
 
     getBoard(p) {

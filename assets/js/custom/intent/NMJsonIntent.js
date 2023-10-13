@@ -14,7 +14,7 @@ class NMJsonIntent extends NMIntent {
     }
 
     getBoareList(p) {
-
+        jsonEffect.getBoareList(p);
     }
 
     getBoard(p) {

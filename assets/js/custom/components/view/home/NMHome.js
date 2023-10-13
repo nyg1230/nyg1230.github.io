@@ -12,7 +12,7 @@ import NMGithubModel from "/assets/js/custom/model/NMGithubModel.js";
 import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
 /* intent */
 import githubIntent from "/assets/js/custom/intent/NMGithubIntent.js";
-import jsonItent from "/assets/js/custom/intent/NMJsonIntent.js";
+import jsonIntent from "/assets/js/custom/intent/NMJsonIntent.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
@@ -150,23 +150,6 @@ export default class NMHome extends NMView {
                     <nm-label class="" value="commit.list" range="git" param="1,23"></nm-label>
                 </div>
                 <div class="list-area">
-                    <!--
-                    <nm-list class="commit-list">
-                        <template>
-                            <div class="row">
-                                <div class="item commit-name ellipsis">
-                                    <nm-label class="" data-value="name">
-                                </nm-label></div>
-                                <div class="item commit-date ellipsis">
-                                    <nm-label class="" data-value="date" type="date" format="$Y-$M-$d $h:$m:$s" tooltip="true">
-                                </nm-label></div>
-                                <div class="item commit-msg ellipsis">
-                                    <nm-label class="" data-value="message" tooltip="true">
-                                </nm-label></div>
-                            </div>
-                        </template>
-                    </nm-list>
-                    -->
                     <nm-grid class="commit-list-grid"></nm-grid>
                 </div>
             </div>
@@ -179,10 +162,10 @@ export default class NMHome extends NMView {
                         <template>
                             <div class="row">
                                 <div class="board-title-area ellipsis">
-                                    <nm-label class="title-label title medium" data-value="title" tooltip="true"></nm-label>
+                                    <nm-label class="title-label title medium" data-title="value" tooltip="true"></nm-label>
                                 </div>
                                 <div class="write-date-area">
-                                    <nm-label class="date-lagel sub-title medium" data-value="date" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
+                                    <nm-label class="date-lagel sub-title medium" data-date="value" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
                                 </div>
                             </div>
                         </template>
@@ -350,7 +333,7 @@ export default class NMHome extends NMView {
     }
 
     getBoardList() {
-        jsonItent.getRecentBoardList({ size: 5 });
+        jsonIntent.getRecentBoardList({ size: 5 });
     }
 }
 

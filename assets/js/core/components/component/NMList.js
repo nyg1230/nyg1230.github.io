@@ -126,8 +126,15 @@ export default class NMList extends NMComponent {
 
         firstEl && firstEl.setAttribute("index", index);
         Object.entries(data).forEach(([k, v]) => {
-            const nodeList = util.DomUtil.querySelectorAll(node, `[data-value="${k}"]`);
-            nodeList.forEach((n) => (n.value = v));
+            // const nodeList = util.DomUtil.querySelectorAll(node, `[data-value="${k}"]`);
+            // nodeList.forEach((n) => (n.value = v));
+
+            const attr = `data-${k}`;
+            const nodeList = util.DomUtil.querySelectorAll(node, `[${attr}]`);
+            nodeList.forEach((node) => {
+                const value = node.getAttribute(attr);
+                node[value] = v;
+            });
         });
         return node;
     }

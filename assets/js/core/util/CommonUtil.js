@@ -172,6 +172,21 @@ const CommonUtil = {
         let result = a % b;
         result = result < 0 ? result + b : result;
         return result;
+    },
+
+    caseSensitiveCompare(target, str, bool = true) {
+        let result = false;
+
+        try {
+            if (bool !== true) {
+                target = target.toUpperCase()
+                str = str.toUpperCase();
+            }
+
+            result = target.includes(str);
+        } catch(e) {}
+        
+        return result;
     }
 };
 
