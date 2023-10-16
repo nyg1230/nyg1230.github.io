@@ -152,6 +152,7 @@ class NMRouter {
 
     route(p) {
         const { path, isPush = true, ...param } = { ...p };
+        const _path = `${path}/`;
 
         const hasView = !!this.getView(path);
         if (!hasView) return;
@@ -171,7 +172,7 @@ class NMRouter {
             if (routePath.length === 0) {
                 parent = this.#container;
             } else {
-                this.#spliceRoute(path);
+                this.#spliceRoute(_path);
                 const route = [...routePath].pop();
                 const { view } = { ...route };
                 parent = view;
@@ -188,7 +189,7 @@ class NMRouter {
             }
         }
 
-        if (!this.#currentPathName || !this.#currentPathName.startsWith(path)) {
+        if (!this.#currentPathName || !this.#currentPathName.startsWith(_path)) {
             const name = path.split("/").pop();
             const cls = this.getView(path);
             const view = new cls(param);
@@ -225,7 +226,7 @@ class NMRouter {
             }
         }
 
-        if (removeList.length === 0) return;
+        if (util.CommonUtil.length(removeList) < 1) return;
         const [target] = [...removeList];
         const { view } = { ...target };
         view && view.remove();

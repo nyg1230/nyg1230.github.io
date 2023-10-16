@@ -11,6 +11,9 @@ const CommonUtil = {
     isString(obj) {
         return typeof obj === "string";
     },
+    isNumeric(obj) {
+        return /^\d*$/.test(`${obj}`);
+    },
     isNull(obj) {
         return obj === null || obj === undefined;
     },

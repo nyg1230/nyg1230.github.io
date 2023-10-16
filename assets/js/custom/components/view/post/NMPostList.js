@@ -4,7 +4,7 @@ import { NMView, define } from "/assets/js/core/components/view/NMView.js";
 import * as util from "/assets/js/core/util/utils.js";
 import router from "/assets/js/core/router/NMRouter.js";
 /* component */
-import NMList from "/assets/js/core/components/component/NMList.js"
+import { NMList, NMRow } from "/assets/js/core/components/component/NMList.js"
 /* model */
 import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
 /* intent */
@@ -48,14 +48,44 @@ export default class NMPostList extends NMView {
     get styles() {
         return `
         .${this.clsName} {
-            border: 1px solid black;
+            padding: 8px 6px;
+        }
+
+        .page-title {
+            padding-bottom: 12px;
         }
 
         .post-list {
+            --border-color: var(--gray-lilac);
+            --col-template: calc(100% / 3) calc(100% * 2 / 3);
+            --row-template: 150px;
+            --padding: 0px 8px;
+
             & .row {
                 display: grid;
+                grid-template-columns: var(--col-template);
+                grid-template-rows: var(--row-template);
+                column-gap: 4px;
+                padding: var(--padding);
 
-                --template-columns: 200px auto;
+                & .left {
+                }
+
+                & .right {
+                    padding: 4px 6px;
+                }
+            }
+        }
+
+        @media screen and (max-width: 860px) {
+            .post-list {
+                --col-template: 100%;
+                --row-template: 200px auto;
+                --padding: 0px;
+
+                .row {
+                    row-gap: 4px;
+                }
             }
         }
         `;
@@ -64,29 +94,43 @@ export default class NMPostList extends NMView {
     get template() {
         return `
         <div class="${this.clsName}" part="${this.clsName}">
-            <div class="">
-                <nm-label class="" value="post.list" range="post"></nm-label>
+            <div class="page-title">
+                <nm-label class="title large" value="post.list" range="post"></nm-label>
             </div>
             <div class="post-list-area">
                 <nm-list class="post-list">
                     <template>
-                        <div class="row">
-                            <div class="left">
-                                <nm-image src="test"></nm-image>
-                            </div>
-                            <div class="right">
-                                <div class="title">
-                                    <nm-label data-title="value" class="title large"></nm-label>
+                        <nm-row click="true">
+                            <div class="row">
+                                <div class="left border hover">
+                                    <nm-image src="test"></nm-image>
                                 </div>
-                                <div class="date">
-                                    <nm-label data-date="value" class="sub-title medium"></nm-label>
+                                <div class="right border hover">
+                                    <div class="title">
+                                        <nm-label data-title="value" class="title large"></nm-label>
+                                    </div>
+                                    <div class="date">
+                                        <nm-label data-date="value" class="sub-title medium"></nm-label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </nm-row>
                     </template>
                 </nm-list>
             </div>
         </div>`;
+    }
+
+    addEvent() {
+        super.addEvent();
+        this.bindEvent(this, NMConst.eventName.LIST_ROW_CLICK, this.onListRowClick);
+    }
+
+    onListRowClick(e) {
+        const { detail: data } = e;
+        const { oid } = { ...data };
+
+        router.pushState(`main/body/post?oid=${oid}`)
     }
 
     afterRender() {

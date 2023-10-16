@@ -5,7 +5,7 @@ import * as util from "/assets/js/core/util/utils.js";
 import router from "/assets/js/core/router/NMRouter.js";
 /* component */
 import NMMenu from "/assets/js/core/components/component/NMMenu.js"
-import NMList from "/assets/js/core/components/component/NMList.js"
+import { NMList } from "/assets/js/core/components/component/NMList.js"
 /* model */
 import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
 /* intent */
@@ -50,9 +50,9 @@ export default class NMNav extends NMView {
                     <div class="link">
                         <nm-list class="link-list">
                             <template>
-                                <div class="row">
-                                    <nm-label class="" type="text" data-value="name"></nm-label>
-                                </div>
+                                <nm-row>
+                                    <nm-label class="" type="text" data-name="value"></nm-label>
+                                </nm-row>
                             </template>
                         </nm-list>
                     </div>

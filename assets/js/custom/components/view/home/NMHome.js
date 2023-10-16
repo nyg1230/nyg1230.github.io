@@ -5,7 +5,7 @@ import * as util from "/assets/js/core/util/utils.js";
 import router from "/assets/js/core/router/NMRouter.js";
 /* component */
 import { NMChart } from "/assets/js/core/components/chart/NMChart.js";
-import NMList from "/assets/js/core/components/component/NMList.js"
+import { NMList, NMRow } from "/assets/js/core/components/component/NMList.js"
 import NMGrid from "/assets/js/core/components/component/NMGrid.js"
 /* model */
 import NMGithubModel from "/assets/js/custom/model/NMGithubModel.js";
@@ -32,6 +32,7 @@ export default class NMHome extends NMView {
     get styles() {
         return `
             .${this.clsName} {
+                padding-top: 12px;
                 --title-padding: 8px;
                 width: 100%;
                 height: 100%;
@@ -122,13 +123,11 @@ export default class NMHome extends NMView {
             }
 
             .recent-board-list-area {
-                padding: 0px 6px;
-
                 & .recent-board-list {
                     --template-columns: 100%;
 
                     & .row {
-                        cursor: pointer;
+                        padding: 4px 8px;
                     }
                 }
             }
@@ -160,14 +159,16 @@ export default class NMHome extends NMView {
 				<div class="recent-board-list-area">
                     <nm-list class="recent-board-list">
                         <template>
-                            <div class="row">
-                                <div class="board-title-area ellipsis">
-                                    <nm-label class="title-label title medium" data-title="value" tooltip="true"></nm-label>
+                            <nm-row click="true">
+                                <div class="row hover">
+                                    <div class="board-title-area ellipsis">
+                                        <nm-label class="title-label title medium" data-title="value" tooltip="true"></nm-label>
+                                    </div>
+                                    <div class="write-date-area">
+                                        <nm-label class="date-lagel sub-title medium" data-date="value" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
+                                    </div>
                                 </div>
-                                <div class="write-date-area">
-                                    <nm-label class="date-lagel sub-title medium" data-date="value" type="date" format="$Y-$M-$d $h:$m:$s"></nm-label>
-                                </div>
-                            </div>
+                            </nm-row>
                         </template>
                     </nm-list>
 				</div>
@@ -182,8 +183,7 @@ export default class NMHome extends NMView {
     }
 
     onListRowClick(e) {
-        const { detail } = e;
-        const { data } = { ...detail };
+        const { detail: data } = e;
         const { oid } = { ...data };
 
         router.pushState(`main/body/post?oid=${oid}`)
@@ -287,19 +287,6 @@ export default class NMHome extends NMView {
     }
 
     setCommitList(data) {
-        // const list = util.DomUtil.querySelector(this, ".commit-list");
-        // const [d] = [...data];
-        // const { commitList } = { ...d };
-        // const listData = {
-        //     header: {
-        //         name: { value: "writer", range: "common", tooltip: false },
-        //         date: { value: "date", range: "common", type: "", tooltip: false },
-        //         message: { value: "message", range: "common", tooltip: false }
-        //     },
-        //     list: commitList
-        // };
-        // list.setData(listData);
-
         const grid = util.DomUtil.querySelector(this, ".commit-list-grid");
         const [d] = [...data];
         const { commitList } = { ...d };
@@ -308,18 +295,18 @@ export default class NMHome extends NMView {
                 columns: [
                     { key: "name", name: "writer", width: 75 },
                     { key: "date", name: "date", width: 150 },
-                    { key: "message", name: "message", width: 200 }
+                    { key: "message", name: "message", width: "auto" }
                 ],
                 list: commitList
             }
         };
 
-        grid.setData(gridData);
+        grid.$data = gridData;
     }
 
     setRecentBoards(data) {
         const list = util.DomUtil.querySelector(this, ".recent-board-list");
-		list.setData(data);
+		list.$data = data;
     }
 
     getChartDatas() {

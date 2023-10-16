@@ -1,33 +1,25 @@
 nm-list {
-    display: grid;
-
-    --template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    --gap-r: 4px;
-    --gap-c: 2px;
     --hover-color-bg: var(--pale-dogwood);
     --hover-color: #000000;
     --color-border: var(--plein-air);
-    --row-padding-lr: 6px;
-    --row-padding-tb: 4px;
-    --row-padding: var(--row-padding-tb) var(--row-padding-lr);
 
-    & .row {
-        display: grid;
+    & nm-row {
         overflow-x: hidden;
-        grid-template-columns: var(--template-columns);
-        column-gap: var(--gap-c);
-        row-gap: var(--gap-r);
-        padding: var(--row-padding);
 
-        &:not(.header):hover {
-            background-color: var(--hover-color-bg);
-            color: var(--hover-color)
+        &[click=true] {
+            cursor: pointer;
         }
-        
-        & .item {
-            border: 1px solid var(--color-border);
-            border-radius: 2px;
-            padding: 2px 4px;
+
+        &:hover {
+            & .hover {
+                background-color: var(--hover-color-bg);
+                color: var(--hover-color)
+            }
+        }
+
+        & .border {
+            border: 1px solid var(--gray-lilac);
+            border-radius: 4px;
         }
     }
 }
