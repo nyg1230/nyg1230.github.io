@@ -13,6 +13,8 @@ import jsonItent from "/assets/js/custom/intent/NMJsonIntent.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
+const avatarUrl = util.CommonUtil.find(NMConst, "env.profile.avatar.url");
+
 export default class NMNav extends NMView {
     modelList = [NMJsonModel];
 
@@ -45,7 +47,7 @@ export default class NMNav extends NMView {
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
                     <div class="avatar">
-                        <nm-image src="test"></nm-image>
+                        <nm-image src="${avatarUrl}"></nm-image>
                     </div>
                     <div class="link">
                         <nm-list class="link-list">

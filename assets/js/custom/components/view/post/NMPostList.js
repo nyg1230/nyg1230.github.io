@@ -5,6 +5,7 @@ import * as util from "/assets/js/core/util/utils.js";
 import router from "/assets/js/core/router/NMRouter.js";
 /* component */
 import { NMList, NMRow } from "/assets/js/core/components/component/NMList.js"
+import NMThumbnail from "/assets/js/core/components/component/NMThumbnail.js"
 /* model */
 import NMJsonModel from "/assets/js/custom/model/NMJsonModel.js";
 /* intent */
@@ -103,7 +104,7 @@ export default class NMPostList extends NMView {
                         <nm-row click="true">
                             <div class="row">
                                 <div class="left border hover">
-                                    <nm-image src="test"></nm-image>
+                                    <nm-thumbnail data-thumbnail="src"></nm-thumbnail>
                                 </div>
                                 <div class="right border hover">
                                     <div class="title">
@@ -165,7 +166,8 @@ export default class NMPostList extends NMView {
         const postList = util.DomUtil.querySelector(this, ".post-list");
 
         if (postList) {
-            postList.setData(list);
+            console.log(list);
+            postList.$data = list;
         }
     }
 }

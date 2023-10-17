@@ -2,7 +2,7 @@ const NMCustomConstant = {
     env: {
         profile: {
             avatar: {
-                url: "/image/profile/avatar.png"
+                url: "/assets/image/profile/avatar.png"
             },
             url: {
                 github: {
@@ -11,6 +11,9 @@ const NMCustomConstant = {
                     icon: ""
                 }
             }
+        },
+        thumbnail: {
+            noThumbnail: "/assets/image/thumbnail/empty/no-thumbnail.png"
         }
     }
 };

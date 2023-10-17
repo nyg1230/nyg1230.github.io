@@ -23,7 +23,8 @@ const NMConstant = {
         SCROLL: "scroll",
         LIST_ROW_CLICK: "listRowClick",
 		SCROLL_TO: "scrollTo",
-        SELECT_MENU: "selectMenu"
+        SELECT_MENU: "selectMenu",
+        IMAGE_ERROR: "imageError"
     },
     mimeType: {
         TEXT__HTML: "text/html",
