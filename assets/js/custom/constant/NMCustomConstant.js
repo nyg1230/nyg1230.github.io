@@ -4,6 +4,9 @@ const NMCustomConstant = {
             avatar: {
                 url: "/assets/image/profile/avatar.png"
             },
+            header: {
+                url: "/assets/image/profile/header.png"
+            },
             url: {
                 github: {
                     name: "nyg1230",

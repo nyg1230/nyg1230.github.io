@@ -29,7 +29,19 @@ export default class NMNav extends NMView {
     get styles() {
         return `
             .${this.clsName} {
-                border: 1px solid blue;
+                border: 1px solid rgba(236, 213, 184, 0.5);
+            }
+
+            .avatar {
+                display: block;
+                max-width: 200px;
+                max-height: 200px;
+            }
+
+            .link-area {
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-bottom: 8px;
             }
 
             .link-list {
@@ -38,18 +50,28 @@ export default class NMNav extends NMView {
                 --row-padding: 0px 4px;
             }
 
+            .menu-area {
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-bottom: 8px;
+            }
+
             nm-menu {
                 cursor: pointer;
+            }
+
+            @media screen and (max-width: 860px) {
+
             }
         `;
     }
 
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
-                    <div class="avatar">
-                        <nm-image src="${avatarUrl}"></nm-image>
+                    <div class="avatar-area">
+                        <nm-image class="avatar" src="${avatarUrl}"></nm-image>
                     </div>
-                    <div class="link">
+                    <div class="link-area">
                         <nm-list class="link-list">
                             <template>
                                 <nm-row>
@@ -58,7 +80,7 @@ export default class NMNav extends NMView {
                             </template>
                         </nm-list>
                     </div>
-                    <div class="menu">
+                    <div class="menu-area">
                         <nm-menu class="link-menu"></nm-menu>
                     </div>
                 </div>`;

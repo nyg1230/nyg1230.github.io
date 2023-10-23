@@ -164,10 +164,12 @@ nm-menu {
 
 @media screen and (max-width: 860px) {
     .nm-body {
+        
+
         .container {
             --width: 100%;
             margin: 0 0;
-            grid-template-areas: "header" "nav" "aside" "sec" "footer";
+            grid-template-areas: "nav" "aside" "sec" "footer";
             grid-template-columns: minmax(0, 100vw);
             grid-template-rows: minmax(0, min-content) minmax(0, min-content) minmax(0, min-content) minmax(0, auto) minmax(0, auto);
         }
@@ -178,7 +180,7 @@ nm-menu {
             height: 75px;
             background-size: contain;
             background-repeat: no-repeat;
-            background-image: url(/assets/image/banner/banner_horison.png);
+            background-image: url(/assets/image/side/banner_horison.png);
         }
     }
 }

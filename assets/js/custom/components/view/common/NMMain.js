@@ -27,6 +27,7 @@ export default class NMMain extends NMView {
                 height: 100%;
                 overflow-y: auto;
 				scroll-behavior: smooth;
+                background-color: rgba(244, 249, 255, 0.3);
             }
         `;
     }

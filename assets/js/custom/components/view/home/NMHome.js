@@ -45,9 +45,9 @@ export default class NMHome extends NMView {
                 grid-template-columns: calc(100% / 3);
                 grid-template-rows:
                     minmax(25vh, 25vh)
-                    minmax(20vh, 25vh)
-                    minmax(10vh, auto)
-                    minmax(10vh, auto);
+                    minmax(20vh, 20vh)
+                    minmax(20vh, 20vh)
+                    minmax(20vh, 20vh);
             }
 
             .title-area {
@@ -58,7 +58,11 @@ export default class NMHome extends NMView {
                 .${this.clsName} {
                     grid-template-areas: "col" "pie" "com" "rec" "tag";
                     grid-template-columns: minmax(0, 100vw);
-                    grid-template-rows: repeat(auto-fit, minmax(20vh, 30vh));
+                    grid-template-rows: repeat(auto, minmax(20vh, 30vh));
+
+                    & > div {
+                        margin-bottom: 20px;
+                    }
                 }
             }
 
@@ -146,7 +150,7 @@ export default class NMHome extends NMView {
             </div>
             <div class="commit-list-area">
                 <div class="title-area">
-                    <nm-label class="" value="commit.list" range="git" param="1,23"></nm-label>
+                    <nm-label class="sub-title large" value="commit.list" range="git" param="1,23"></nm-label>
                 </div>
                 <div class="list-area">
                     <nm-grid class="commit-list-grid"></nm-grid>
@@ -154,7 +158,7 @@ export default class NMHome extends NMView {
             </div>
             <div class="recent-list-area">
                 <div class="title-area">
-                    <nm-label class="" value="recent.post.list" range="post"></nm-label>
+                    <nm-label class="sub-title large" value="recent.post.list" range="post"></nm-label>
                 </div>
 				<div class="recent-board-list-area">
                     <nm-list class="recent-board-list">

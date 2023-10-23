@@ -31,11 +31,16 @@ export default class NMBody extends NMView {
             .${this.clsName} {
                 width: 100%;
                 height: 100%;
-				display: flex;
-				flex-direction: column;
+				display: grid;
+
+				grid-template-areas: "header" "container";
+				grid-template-rows: 10vh auto;
+
+				background-color: rgba(EF, D1, C6, 1);
             }
 
 			.container {
+				grid-area: container;
 				--width: 1440px;
 				max-width: var(--width);
                 height: 100%;
@@ -43,6 +48,11 @@ export default class NMBody extends NMView {
 				grid-template-areas: "nav sec aside";
 				grid-template-columns: minmax(0, 10vw) minmax(0, 60vw) minmax(0, 10vw);
 				margin: 0 auto;
+
+				& > section {
+					background-color: rgba(224, 208, 219, 0.1);
+					padding: 0px 12px;
+				}
 			}
 
 			.side-bar {
@@ -50,8 +60,6 @@ export default class NMBody extends NMView {
 			}
 
 			nm-header {
-				position: sticky;
-				height: fit-content;
 				grid-area: header;
 			}
 
@@ -77,7 +85,7 @@ export default class NMBody extends NMView {
     get template() {
         return `
         <div class="${this.clsName}" part="${this.clsName}">
-            <nm-header></nm-header>
+			<nm-header></nm-header>
 			<div class="container">
 				<div class="side-bar">
 					<nm-nav></nm-nav>

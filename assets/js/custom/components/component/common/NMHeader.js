@@ -6,6 +6,9 @@ import * as util from "/assets/js/core/util/utils.js";
 /* constant */
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
+const backgroundUrl = util.CommonUtil.find(NMConst, "env.profile.header.url");
+console.log(backgroundUrl);
+
 export default class NMHeader extends NMComponent {
     static get observedAttributes() {
         return [];
@@ -23,14 +26,30 @@ export default class NMHeader extends NMComponent {
         return `
             .${this.clsName} {
                 border: 1px solid black;
+                height: 100%;
+
+                & > div {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .hBg {
+                background-image: url("${backgroundUrl}");
+                background-repeat: round;
             }
         `;
     }
 
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
-                    별 내용 없으며 배경 이미지
+                    <div class="hBg">
+                    </div>
                 </div>`;
+    }
+
+    afterRender() {
+        
     }
 }
 

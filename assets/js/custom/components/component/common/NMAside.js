@@ -30,7 +30,7 @@ export default class NMAside extends NMComponent {
                 height: 600px;
                 background-size: contain;
                 background-repeat: no-repeat;
-                background-image: url(/assets/image/banner/banner_vertical.png);
+                background-image: url(/assets/image/side/banner_v.png);
             }
             `;
     }
