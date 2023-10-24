@@ -28,7 +28,7 @@ export default class NMAside extends NMComponent {
             .banner {
                 border: 1px solid var(--plein-air);
                 height: 600px;
-                background-size: contain;
+                background-size: auto;
                 background-repeat: no-repeat;
                 background-image: url(/assets/image/side/banner_v.png);
             }

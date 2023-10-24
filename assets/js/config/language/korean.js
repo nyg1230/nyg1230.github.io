@@ -5,7 +5,8 @@ const korean = {
         date: "날짜",
         message: "메세지",
         home: "홈",
-        category: "카테고리"
+        category: "카테고리",
+        scribble: "끄적끄적"
     },
     post: {
         "post": "작성글",

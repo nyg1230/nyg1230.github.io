@@ -152,6 +152,10 @@ export default class NMNav extends NMView {
                 range: "common",
                 url: "main/body/categories",
                 data: [...data]
+            },
+            {
+                value: "scribble",
+                url: "main/body/doodle"
             }
         ];
 

@@ -5,7 +5,8 @@ const english_us = {
         date: "Date",
         message: "Message",
         home: "Home",
-        category: "Category"
+        category: "Category",
+        scribble: "Scribble"
     },
     post: {
         "post": "Post",
