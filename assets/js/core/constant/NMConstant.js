@@ -7,6 +7,11 @@ import * as util from "/assets/js/core/util/utils.js";
 import NMCustomConstant from "/assets/js/custom/constant/NMCustomConstant.js";
 
 const NMConstant = {
+    actionName: {
+        INSERT: "insert",
+        UPDATE: "update",
+        DELETE: "delete"
+    },
     eventName: {
         CLICK: "click",
         MOUSE_MOVE: "mousemove",
@@ -25,7 +30,8 @@ const NMConstant = {
         LIST_ROW_CLICK: "listRowClick",
 		SCROLL_TO: "scrollTo",
         SELECT_MENU: "selectMenu",
-        IMAGE_ERROR: "imageError"
+        IMAGE_ERROR: "imageError",
+        VALUE_CHANGE: "valueChange"
     },
     mimeType: {
         TEXT__HTML: "text/html",

@@ -35,6 +35,14 @@ class NMComponent extends HTMLElement {
         return this.#rect;
     }
 
+    get name() {
+        return this.getAttribute("name");
+    }
+
+    set name(name) {
+        return this.setAttribute("name", name);
+    }
+
     get styles() {
         return ``;
     }

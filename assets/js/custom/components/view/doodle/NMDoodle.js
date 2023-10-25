@@ -12,6 +12,7 @@ export default class NMDoodle extends NMView {
     #ctx;
     #option = {
         isDraw: false,
+        isStyleChange: false,
         status: {
             mode: "pen",
             style: {}
@@ -51,6 +52,33 @@ export default class NMDoodle extends NMView {
                 // border: 1px solid blue;
                 background-color: white;
             }
+
+            .tool-area {
+                border: 1px solid black;
+
+                & .attr-area {
+                    padding: 4px 12px;
+                }
+
+                & .flex-area {
+                    display: flex;
+                }
+
+                & .name-label {
+                    width: 100px;
+                    padding
+                }
+
+                & .color-area {
+                    & .color-sample {
+                        --sample-bg-color;
+                        margin-left: 12px;
+                        width: 20px;
+                        background-color: var(--sample-bg-color);
+                    }
+                }
+            }
+
             `;
     }
 
@@ -59,6 +87,13 @@ export default class NMDoodle extends NMView {
                     <div class="canvas-area">
                         <canvas class="doodle" height="600"></canvas>
                     </div>
+                    <div class="tool-area">
+                        <div class="color-area attr-area flex-area">
+                            <nm-label class="name-label" value="color"></nm-label>
+                            <nm-input name="color" value="000000"></nm-input>
+                            <div class="color-sample"></div>
+                        </div>
+                    <div>
                 </div>`;
     }
 
@@ -100,15 +135,29 @@ export default class NMDoodle extends NMView {
 
         if (mode !== "pen") return;
 
+        if (this.#option.isStyleChange) {
+            this.setHistory("style", { ...this.#option.status.style });
+            this.#option.isStyleChange = false;
+        }
+
         const { left, top } = this.#canvasRect;
         const { clientX, clientY } = e;
         const prevPoint = this.#curPoint;
         this.#curPoint = [clientX - left, clientY - top];
 
         const points = [prevPoint, this.#curPoint];
-        const line = util.CanvasUtil.line(points)
+        const line = util.CanvasUtil.line(points, { style: this.#option.status.style });
         line.draw(this.#ctx);
         this.setHistory("line", points);
+    }
+
+    onValueChange(e) {
+        const { detail } = e;
+        const { name, type, value } = { ...detail };
+
+        if (name === "color") {
+            this.setSampleColor(value, NMConst.actionName.INSERT === type);
+        }
     }
 
     afterRender() {
@@ -156,18 +205,24 @@ export default class NMDoodle extends NMView {
     }
 
     callHistory() {
+        const originStyle = this.#option.status.style;
+
         this.#history.forEach((hist) => {
             this.exec(hist);
         });
+
+        this.#option.status.style = originStyle;
     }
 
     exec(history) {
         const { type, content } = { ...history };
-        const style = util.CommonUtil.find(this.#option, "status.style", {})
-
+        
         if (type === "line") {
+            const style = util.CommonUtil.find(this.#option, "status.style", {})
             const line = util.CanvasUtil.line(content, { style });
             line.draw(this.#ctx);
+        } else if (type === "style") {
+            this.#option.status.style = content;
         }
     }
 
@@ -196,6 +251,18 @@ export default class NMDoodle extends NMView {
     setHistoryUrl() {
         const str = btoa(JSON.stringify(this.hist));
         router.pushState(`main/body/doodle?history=${str}`);
+    }
+
+    setSampleColor(color, init = false) {
+        const sampleColor = util.DomUtil.querySelector(this, ".color-sample");
+        if (sampleColor) {
+            sampleColor.style = `--sample-bg-color: #${color};`
+
+            if (!init) {
+                this.#option.status.style.strokeStyle = `#${color}`;
+                this.#option.isStyleChange = true;
+            }
+        }
     }
 }
 
