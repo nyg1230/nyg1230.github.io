@@ -42,7 +42,7 @@ export default class NMInput extends NMComponent {
     get template() {
         return `
         <div class="${this.clsName}" part="${this.clsName}">
-            <input type="text" part="input" value="${this.value}"/>
+            <input type="text" part="input"/>
         </div>`;
     }
 
@@ -70,15 +70,10 @@ export default class NMInput extends NMComponent {
     addEvent() {}
 
     afterRender() {
+        this.input && (this.#input.value = this.value);
         this.bindEvent(this.input, "change", this.onChange);
         this.bindEvent(this.input, "input", this.onInput);
     }
-
-    // onChange(e) {
-    //     console.log(e);
-    //     const { target } = e;
-    //     this.value = target.value;
-    // }
 
     onInput(e) {
         const { target } = e;

@@ -93,6 +93,11 @@ export default class NMDoodle extends NMView {
                             <nm-input name="color" value="000000"></nm-input>
                             <div class="color-sample"></div>
                         </div>
+                        <div class="thickness-area attr-area flex-area">
+                            <nm-label class="name-label" value="thickness"></nm-label>
+                            <nm-input name="thickness" value="1"></nm-input>
+                            <div class="thickness-sample"></div>
+                        </div>
                     <div>
                 </div>`;
     }
@@ -113,6 +118,10 @@ export default class NMDoodle extends NMView {
         this.bindEvent(this, NMConst.eventName.MOUSE_DOWN, this.onMouseDown);
         this.bindEvent(this, NMConst.eventName.MOUSE_UP, this.onMouseUp);
         this.bindEvent(this, NMConst.eventName.MOUSE_MOVE, this.onMouseMove);
+
+        this.bindEvent(this, NMConst.eventName.TOUCH_START, this.onMouseDown);
+        this.bindEvent(this, NMConst.eventName.TOUCH_END, this.onMouseUp);
+        this.bindEvent(this, NMConst.eventName.TOUCH_MOVE, this.onMouseMove);
     }
 
     onMouseDown(e) {
@@ -149,6 +158,9 @@ export default class NMDoodle extends NMView {
         const line = util.CanvasUtil.line(points, { style: this.#option.status.style });
         line.draw(this.#ctx);
         this.setHistory("line", points);
+
+        e.preventDefault();
+        e.stopPropagation();
     }
 
     onValueChange(e) {
@@ -157,6 +169,8 @@ export default class NMDoodle extends NMView {
 
         if (name === "color") {
             this.setSampleColor(value, NMConst.actionName.INSERT === type);
+        } else if (name === "thickness") {
+            this.setCanvasStyle("lineWidth", value);
         }
     }
 
@@ -253,14 +267,18 @@ export default class NMDoodle extends NMView {
         router.pushState(`main/body/doodle?history=${str}`);
     }
 
+    setCanvasStyle(key, value) {
+        this.#option.status.style[key] = value;
+        this.#option.isStyleChange = true;
+    }
+
     setSampleColor(color, init = false) {
         const sampleColor = util.DomUtil.querySelector(this, ".color-sample");
         if (sampleColor) {
             sampleColor.style = `--sample-bg-color: #${color};`
 
             if (!init) {
-                this.#option.status.style.strokeStyle = `#${color}`;
-                this.#option.isStyleChange = true;
+                this.setCanvasStyle("strokeStyle", `#${color}`);
             }
         }
     }

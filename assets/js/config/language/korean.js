@@ -6,7 +6,9 @@ const korean = {
         message: "메세지",
         home: "홈",
         category: "카테고리",
-        scribble: "끄적끄적"
+        scribble: "끄적끄적",
+        color: "색상",
+        thickness: "두께"
     },
     post: {
         "post": "작성글",

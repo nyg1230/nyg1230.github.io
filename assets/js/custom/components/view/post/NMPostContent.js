@@ -49,11 +49,11 @@ export default class NMPostContent extends NMView {
                     <nm-label class="title large"></nm-label>
                 </div>
                 <div class="date-area">
-                    <nm-label class="sub-title medium" value="write.date" range="board"></nm-label>
+                    <nm-label class="sub-title medium" value="write.date" range="post"></nm-label>
                     <nm-label class="sub-title medium write-date"></nm-label>
                 </div>
                 <div class="writer-area">
-                    <nm-label class="sub-title medium" value="wirter" range="board"></nm-label>
+                    <nm-label class="sub-title medium" value="wirter" range="post"></nm-label>
                     <nm-label class="sub-title medium writer"></nm-label>
                 </div>
 			</div>

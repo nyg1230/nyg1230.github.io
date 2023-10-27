@@ -150,11 +150,10 @@ class NMRouter {
             url = `#${url}`
         }
 
+        const isSameUrl = this.isSameUrl(url);
         window.history.pushState(param, "", url);
 
-        if (!this.isSameUrl(url)) {
-            this.route({ path: this.getPathName(), ...param });
-        }
+        !isSameUrl && this.route({ path: this.getPathName(), ...param });
     }
 
     route(p) {

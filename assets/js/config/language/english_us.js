@@ -6,7 +6,9 @@ const english_us = {
         message: "Message",
         home: "Home",
         category: "Category",
-        scribble: "Scribble"
+        scribble: "Scribble",
+        color: "Color",
+        thickness: "Thickness"
     },
     post: {
         "post": "Post",
