@@ -26,19 +26,49 @@ export default class NMAside extends NMComponent {
             }
 
             .banner {
+                display: block;
                 border: 1px solid var(--plein-air);
                 height: 600px;
-                background-size: auto;
-                background-repeat: no-repeat;
-                background-image: url(/assets/image/side/banner_v.png);
+
+                &.horizon {}
             }
+
+            
             `;
+    }
+
+    get #banner() {
+        return {
+            horizon: "/assets/image/side/banner_h.png",
+            vertical: "/assets/image/side/banner_v.png"
+        }
     }
 
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
-                    <div class="banner"></div>
+                    <nm-image class="banner" src="/assets/image/side/banner_v.png"></nm-image>
                 </div>`;
+    }
+
+    afterRender() {
+        this.resizeBanner()
+    }
+    
+    resizeBanner() {
+        const image = util.DomUtil.querySelector(this, `.banner`);
+
+        const fn = (entry) => {
+            const { contentRect } = entry;
+            const { width } = contentRect;
+
+            if (width <= 860) {
+                image.src = this.#banner.horizon;
+            } else {
+                image.src = this.#banner.vertical;
+            }
+        }
+
+        util.ObserverUtil.resizeObserver(this, [document.body], fn);
     }
 }
 

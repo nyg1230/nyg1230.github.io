@@ -25,12 +25,29 @@ export default class NMHeader extends NMComponent {
     get styles() {
         return `
             .${this.clsName} {
-                border: 1px solid black;
+                position: relative;
+                width: 100%;
                 height: 100%;
+                overflow: hidden;
 
-                & > div {
-                    width: 100%;
-                    height: 100%;
+                & .image-title {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+                & .header-image {
+                    display: contents;
+                    position: relative;
+                    
+                    &::part(nm-image) {
+                        position: absolute;
+                    }
+
+                    &::part(image) {
+                        opacity: 0.1;
+                    }
                 }
             }
 
@@ -43,8 +60,8 @@ export default class NMHeader extends NMComponent {
 
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
-                    <div class="hBg">
-                    </div>
+                    <nm-image class="header-image" src="${backgroundUrl}"></nm-image>
+                    <div class="image-title title large">누군가의 개인 블로그...</div>
                 </div>`;
     }
 

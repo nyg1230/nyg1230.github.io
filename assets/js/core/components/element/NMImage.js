@@ -47,7 +47,7 @@ export default class NMImage extends NMComponent {
 
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
-                    <img class="image"></img>
+                    <img class="image" part="image"></img>
                 </div>`;
     }
 
