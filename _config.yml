@@ -31,7 +31,7 @@ github_username:  nyg1230
 github_url: https://github.com/nyg1230
 
 # Build settings
-theme: minima
+theme:
 plugins:
   - jekyll-feed
 

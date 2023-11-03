@@ -5,10 +5,6 @@ date:   2023-07-08 15:17:00 +0900
 author: nope
 category: ["canvas", "chart", "js"]
 thumbnail: "canvas_chart.png"
-breadcrumb:
-    - { title: Home, path: / }
-    - { title: Category, path: / }
-    - { title: post list, path: /category/postList.html }
 ---
 
 ### 목차

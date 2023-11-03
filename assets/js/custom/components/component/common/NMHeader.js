@@ -61,7 +61,7 @@ export default class NMHeader extends NMComponent {
     get template() {
         return `<div class="${this.clsName}" part="${this.clsName}">
                     <nm-image class="header-image" src="${backgroundUrl}"></nm-image>
-                    <div class="image-title title large">누군가의 개인 블로그...</div>
+                    <div class="image-title title large">Nope</div>
                 </div>`;
     }
 

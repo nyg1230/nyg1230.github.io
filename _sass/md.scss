@@ -14,7 +14,19 @@
         font-size: 20px;
     }
 
+    & li {
+        & h2 {
+            margin: 0px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+    }
+
     & code {
+        &, & * {
+            user-select: text;
+        }
+
         & span {
             &.cm { color: var(--annotation-color-area); }
 
@@ -41,5 +53,9 @@
             overflow: auto;
             padding: 4px 8px;
         }
+    }
+
+    img {
+        width: 100%;
     }
 }
