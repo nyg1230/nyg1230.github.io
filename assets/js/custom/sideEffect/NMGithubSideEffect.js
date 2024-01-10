@@ -11,7 +11,7 @@ import NMGithubModel from "/assets/js/custom/model/NMGithubModel.js";
 import NMConst from "/assets/js/core/constant/NMConstant.js";
 
 const apiKey = (function() {
-    const keys = ["Z2hwX0podldWeHg5", "MjgwUTJmSktBcHhNc3VI", "ZTZMS0ducTFsMk5uOQ=="]
+    const keys = ["Z2hwXzcyY1RvUE", "VsTWZXQXJmak5qRXRV", "MTdWNGdTQkJEYzNwYzhyTw=="]
     return keys.reduce((acc, val) => acc += `${val}`);
 })();
 const apiVersion = NMConst.env.github.apiVersion;
